@@ -220,7 +220,7 @@ function PricingPage({ onBack }) {
   return (
     <div style={{ background: "#fff", minHeight: "100vh" }}>
       {/* HEADER */}
-      <div style={{ borderBottom: "1px solid var(--ink25)", padding: "20px 64px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div className="pricing-header">
         <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} style={{ display: "flex", alignItems: "center", gap: "14px", textDecoration: "none" }}>
           <Logo size={50} />
           <div>
@@ -235,7 +235,7 @@ function PricingPage({ onBack }) {
       </div>
 
       {/* HERO */}
-      <div style={{ textAlign: "center", padding: "80px 40px 20px" }}>
+      <div className="pricing-hero">
         <Reveal>
           <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--gold)", fontWeight: 600, marginBottom: "16px" }}>Sin matrícula · Sin permanencia</div>
           <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(34px,4vw,56px)", fontWeight: 900, color: "var(--blue-d)", lineHeight: 1.05, letterSpacing: "-2px", marginBottom: "20px" }}>
@@ -248,7 +248,7 @@ function PricingPage({ onBack }) {
       </div>
 
       {/* PLANS */}
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "40px 40px 80px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "20px", alignItems: "start" }}>
+      <div className="pricing-grid">
         {SITE.plans.map((plan, i) => {
           const isPopular = plan.badge === "Más elegido";
           const isBest = plan.badge === "Máximo ahorro";
@@ -685,9 +685,14 @@ export default function App() {
         .mob-btn{display:none;background:none;border:none;cursor:pointer;padding:6px;}
         .mob-btn span{display:block;width:22px;height:1.5px;background:var(--blue-d);margin:5px 0;transition:.3s;}
 
-        @media(max-width:1100px){.sp{padding:80px 40px;}.hero-inner{padding:120px 40px 80px;}.stats-band,.cta-sec,.footer{padding-left:40px;padding-right:40px;}.about-left,.about-right{padding:60px 40px;}}
+        /* ── PRICING PAGE ── */
+        .pricing-header{border-bottom:1px solid var(--ink25);padding:20px 64px;display:flex;align-items:center;justify-content:space-between;}
+        .pricing-grid{max-width:1200px;margin:0 auto;padding:40px 40px 80px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:start;}
+        .pricing-hero{text-align:center;padding:80px 40px 20px;}
+
+        @media(max-width:1100px){.sp{padding:80px 40px;}.hero-inner{padding:120px 40px 80px;}.stats-band,.cta-sec,.footer{padding-left:40px;padding-right:40px;}.about-left,.about-right{padding:60px 40px;}.pricing-grid{grid-template-columns:repeat(2,1fr);padding:40px 32px 60px;}}
         @media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:48px;}.about{grid-template-columns:1fr;}.cta-sec{grid-template-columns:1fr;gap:40px;}.feat-grid{grid-template-columns:repeat(2,1fr);}.feat-item:nth-child(3n){border-right:1px solid var(--ink25);}.feat-item:nth-child(2n){border-right:none;}.steps-grid{grid-template-columns:repeat(2,1fr);}.testi-grid{grid-template-columns:1fr;}.stats-band{grid-template-columns:repeat(2,1fr);}.footer-top{grid-template-columns:1fr 1fr;}}
-        @media(max-width:768px){.nav{padding:0 20px;height:76px;}.nav-name{font-size:16px;}.nav-links{display:none;}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:76px;left:0;right:0;bottom:0;background:#fff;padding:40px 24px;gap:20px;align-items:flex-start;}.nav-links.open a{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink)!important;}.mob-btn{display:block;}.sp{padding:70px 24px;}.hero-inner{padding:100px 24px 70px;}.about-left,.about-right{padding:50px 24px;}.cta-sec,.stats-band,.footer{padding:70px 24px;}.footer-top{grid-template-columns:1fr;gap:36px;}.feat-grid{grid-template-columns:1fr;}.steps-grid{grid-template-columns:1fr;}.stats-band{grid-template-columns:repeat(2,1fr);}.stat-item{border-right:none;border-bottom:1px solid var(--ink25);}}
+        @media(max-width:768px){.nav{padding:0 20px;height:76px;}.nav-name{font-size:16px;}.nav-links{display:none;}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:76px;left:0;right:0;bottom:0;background:#fff;padding:40px 24px;gap:20px;align-items:flex-start;}.nav-links.open a{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink)!important;}.mob-btn{display:block;}.sp{padding:70px 24px;}.hero-inner{padding:100px 24px 70px;}.about-left,.about-right{padding:50px 24px;}.cta-sec,.stats-band,.footer{padding:70px 24px;}.footer-top{grid-template-columns:1fr;gap:36px;}.feat-grid{grid-template-columns:1fr;}.steps-grid{grid-template-columns:1fr;}.stats-band{grid-template-columns:repeat(2,1fr);}.stat-item{border-right:none;border-bottom:1px solid var(--ink25);}.pricing-grid{grid-template-columns:1fr;padding:24px 20px 60px;gap:28px;}.pricing-header{padding:16px 20px;flex-wrap:wrap;gap:12px;}.pricing-hero{padding:60px 20px 16px;}}
       `}</style>
 
       {page === "home" && <HomePage onNavigate={navigate} />}
