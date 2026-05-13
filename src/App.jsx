@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
    DATOS
 ═══════════════════════════════════════════ */
 const SITE = {
-  name: "Academia Prisiones ES",
+  name: "Preparador IIPP",
   tagline: "Oposiciones IIPP · Formación Profesional",
   heroTitle: "Prepárate IP:",
   heroTitleItalic: "Supuestos Prácticos Reales",
@@ -204,7 +204,9 @@ function Logo({ size = 56 }) {
       <rect x="46" y="76" width="16" height="3" rx="1" fill="#8B6E48"/>
       <rect x="58" y="79" width="3" height="4" rx="0.5" fill="#8B6E48"/>
       <rect x="62" y="79" width="2.5" height="3" rx="0.5" fill="#8B6E48"/>
-      <text x="50" y="94" textAnchor="middle" fontFamily="Arial,sans-serif" fontSize="9" fontWeight="700" fill="#1E3A6E" letterSpacing="1.5">IIPP</text>
+      {/* IIPP badge — fondo blanco, texto azul, bien visible */}
+      <rect x="33" y="86" width="34" height="13" rx="6" fill="#FFFFFF" stroke="#1E3A6E" strokeWidth="1.2"/>
+      <text x="50" y="96" textAnchor="middle" fontFamily="Arial Black, Arial, sans-serif" fontSize="8.5" fontWeight="900" fill="#1E3A6E" letterSpacing="1">IIPP</text>
     </svg>
   );
 }
@@ -377,7 +379,7 @@ function PricingPage({ onBack }) {
 
       {/* FOOTER mini */}
       <div style={{ background: "var(--blue-d)", padding: "32px 64px", textAlign: "center" }}>
-        <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)" }}>© 2026 Academia Prisiones ES — Todos los derechos reservados</p>
+        <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)" }}>© 2026 Preparador IIPP — Todos los derechos reservados</p>
       </div>
     </div>
   );
@@ -438,7 +440,7 @@ function HomePage({ onNavigate }) {
         <div className="hero-inner">
           <div>
             <div className="hero-eyebrow">Oposiciones · Instituciones Penitenciarias · España</div>
-            <h1 className="hero-h1">Prepárate IP:<br/><em>Supuestos Prácticos</em><br/>Reales</h1>
+            <h1 className="hero-h1">Prepárate IIPP:<br/><em>Supuestos Prácticos</em><br/>Reales</h1>
             <p className="hero-sub">{SITE.heroSub}</p>
             <div className="hero-btns">
               <a href="#" className="btn-gold" onClick={(e) => { e.preventDefault(); onNavigate("tarifas"); }}>{SITE.cta} →</a>
@@ -540,7 +542,7 @@ function HomePage({ onNavigate }) {
           <div><div className="f-col-title">Plataforma</div>{["Tarifas","Supuesto GRATIS","Cancelar suscripción","Acceso plataforma"].map(l=>(<a key={l} href="#" className="f-link" onClick={l==="Tarifas"?(e)=>{e.preventDefault();onNavigate("tarifas");}:undefined}>{l}</a>))}</div>
           <div><div className="f-col-title">Legal</div>{["Política de Privacidad","Aviso Legal","Política de Cookies","Condiciones generales"].map(l=>(<a key={l} href="#" className="f-link">{l}</a>))}</div>
         </div>
-        <div className="footer-bottom"><span className="f-copy">© 2026 Academia Prisiones ES — Todos los derechos reservados</span><span className="f-copy">Hecho con ❤ para opositores</span></div>
+        <div className="footer-bottom"><span className="f-copy">© 2026 Preparador IIPP — Todos los derechos reservados</span><span className="f-copy">Hecho con ❤ para opositores</span></div>
       </footer>
     </div>
   );
