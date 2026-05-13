@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from "react";
 const SITE = {
   name: "Preparador IIPP",
   tagline: "Oposiciones IIPP · Formación Profesional",
-  heroTitle: "Prepárate IP:",
+  heroTitle: "Prepárate IIPP:",
   heroTitleItalic: "Supuestos Prácticos Reales",
   heroSub: "La plataforma de referencia para preparar tu oposición a Instituciones Penitenciarias con casos reales, resoluciones detalladas y un método avalado por funcionarios en activo.",
   cta: "Empieza gratis",
