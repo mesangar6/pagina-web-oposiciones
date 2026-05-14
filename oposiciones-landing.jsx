@@ -440,7 +440,7 @@ function HomePage({ onNavigate }) {
         <div className="hero-inner">
           <div>
             <div className="hero-eyebrow">Oposiciones · Instituciones Penitenciarias · España</div>
-            <h1 className="hero-h1">Prepárate IP:<br/><em>Supuestos Prácticos</em><br/>Reales</h1>
+            <h1 className="hero-h1">Prepárate IIPP:<br/><em>Supuestos Prácticos</em><br/>Reales</h1>
             <p className="hero-sub">{SITE.heroSub}</p>
             <div className="hero-btns">
               <a href="#" className="btn-gold" onClick={(e) => { e.preventDefault(); onNavigate("tarifas"); }}>{SITE.cta} →</a>
