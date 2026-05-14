@@ -18,7 +18,7 @@ const Icon = {
   plus:      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
   edit:      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>,
   trash:     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>,
-  eye:       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>,
+  apariencia: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>,
 };
 
 /* ════════════════════════════
@@ -527,6 +527,175 @@ const badge = (color) => ({
 });
 
 /* ════════════════════════════
+   APARIENCIA
+════════════════════════════ */
+function Apariencia() {
+  const [datos, setDatos] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [preview, setPreview] = useState({});
+
+  useEffect(() => { fetchDatos(); }, []);
+
+  const fetchDatos = async () => {
+    setLoading(true);
+    const { data } = await supabase.from("contenido_web").select("*")
+      .in("clave", ["color_primario","color_acento","color_secundario","site_nombre","site_tagline"]);
+    const obj = {};
+    data?.forEach(d => { obj[d.clave] = d.valor; });
+    setDatos(obj);
+    setPreview(obj);
+    setLoading(false);
+  };
+
+  const handleChange = (clave, valor) => {
+    setDatos({ ...datos, [clave]: valor });
+    setPreview({ ...preview, [clave]: valor });
+  };
+
+  const guardarTodo = async () => {
+    setSaving(true);
+    await Promise.all(
+      Object.entries(datos).map(([clave, valor]) =>
+        supabase.from("contenido_web").update({ valor, updated_at: new Date().toISOString() }).eq("clave", clave)
+      )
+    );
+    setSaving(false);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 3000);
+  };
+
+  const presets = [
+    { name: "Azul institucional", primario: "#1E3A6E", acento: "#C9A020", secundario: "#0D2347" },
+    { name: "Verde judicial",     primario: "#1A4731", acento: "#D4A017", secundario: "#0D2B1E" },
+    { name: "Granate académico",  primario: "#6B1A2A", acento: "#C9A84C", secundario: "#3D0A12" },
+    { name: "Gris corporativo",   primario: "#2D3748", acento: "#E8A020", secundario: "#1A202C" },
+    { name: "Negro elegante",     primario: "#1A1A2E", acento: "#C9A020", secundario: "#0D0D1A" },
+    { name: "Azul marino",        primario: "#003366", acento: "#FFD700", secundario: "#001A33" },
+  ];
+
+  if (loading) return <div style={{ textAlign: "center", padding: "60px", color: "var(--ink60)" }}>Cargando...</div>;
+
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+        <h2 style={pageTitle}>Apariencia</h2>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          {saved && <span style={{ fontSize: "13px", color: "#2A7A30", fontWeight: 600 }}>✓ Guardado — se verá en la web en unos segundos</span>}
+          <button style={btnPrimary} onClick={guardarTodo} disabled={saving}>
+            {saving ? "Guardando..." : "💾 Guardar cambios"}
+          </button>
+        </div>
+      </div>
+      <p style={{ fontSize: "14px", color: "var(--ink60)", marginBottom: "32px" }}>
+        Los cambios se aplican automáticamente en <strong>preparadoriipp.com</strong> al guardar.
+      </p>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+
+        {/* Colores */}
+        <div style={{ background: "#fff", borderRadius: "12px", padding: "28px", boxShadow: "0 1px 8px rgba(13,35,71,0.07)" }}>
+          <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--blue-d)", marginBottom: "24px", paddingBottom: "12px", borderBottom: "1px solid #EBF0F8" }}>🎨 Colores</h3>
+
+          {[
+            { clave: "color_primario",   label: "Color principal",  desc: "Fondo del hero, nav, footer" },
+            { clave: "color_acento",     label: "Color de acento",  desc: "Botones, líneas, highlights" },
+            { clave: "color_secundario", label: "Color secundario", desc: "Fondos oscuros secundarios" },
+          ].map(({ clave, label, desc }) => (
+            <div key={clave} style={{ marginBottom: "20px" }}>
+              <label style={{ ...labelStyle, marginBottom: "4px" }}>{label}</label>
+              <p style={{ fontSize: "12px", color: "var(--ink60)", marginBottom: "8px" }}>{desc}</p>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <input
+                  type="color"
+                  value={datos[clave] || "#000000"}
+                  onChange={e => handleChange(clave, e.target.value)}
+                  style={{ width: "52px", height: "40px", padding: "2px", border: "1px solid #E2E8F0", borderRadius: "6px", cursor: "pointer" }}
+                />
+                <input
+                  type="text"
+                  value={datos[clave] || ""}
+                  onChange={e => handleChange(clave, e.target.value)}
+                  style={{ ...inputStyle, marginBottom: 0, flex: 1, fontFamily: "monospace", fontSize: "14px" }}
+                  placeholder="#000000"
+                />
+                <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: datos[clave], border: "1px solid #E2E8F0", flexShrink: 0 }}/>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Identidad */}
+        <div style={{ background: "#fff", borderRadius: "12px", padding: "28px", boxShadow: "0 1px 8px rgba(13,35,71,0.07)" }}>
+          <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--blue-d)", marginBottom: "24px", paddingBottom: "12px", borderBottom: "1px solid #EBF0F8" }}>🏷️ Identidad</h3>
+
+          {[
+            { clave: "site_nombre",  label: "Nombre del sitio",  placeholder: "Preparador IIPP" },
+            { clave: "site_tagline", label: "Subtítulo",         placeholder: "Oposiciones IIPP · Formación Profesional" },
+          ].map(({ clave, label, placeholder }) => (
+            <div key={clave} style={{ marginBottom: "20px" }}>
+              <label style={labelStyle}>{label}</label>
+              <input
+                style={{ ...inputStyle, marginBottom: 0 }}
+                value={datos[clave] || ""}
+                onChange={e => handleChange(clave, e.target.value)}
+                placeholder={placeholder}
+              />
+            </div>
+          ))}
+
+          {/* Preview mini */}
+          <div style={{ marginTop: "24px", borderRadius: "8px", overflow: "hidden", border: "1px solid #E2E8F0" }}>
+            <div style={{ background: preview.color_primario || "#1E3A6E", padding: "12px 16px", display: "flex", alignItems: "center", gap: "10px" }}>
+              <div style={{ width: "28px", height: "28px", borderRadius: "6px", background: preview.color_acento || "#C9A020", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px" }}>🛡️</div>
+              <div>
+                <div style={{ fontWeight: 700, color: "#fff", fontSize: "13px" }}>{preview.site_nombre || "Preparador IIPP"}</div>
+                <div style={{ fontSize: "9px", color: preview.color_acento || "#C9A020", letterSpacing: "1px", textTransform: "uppercase" }}>{preview.site_tagline || "Oposiciones IIPP"}</div>
+              </div>
+            </div>
+            <div style={{ background: "#fff", padding: "12px 16px" }}>
+              <div style={{ height: "8px", background: preview.color_primario || "#1E3A6E", borderRadius: "4px", width: "60%", marginBottom: "6px" }}/>
+              <div style={{ height: "6px", background: "#E2E8F0", borderRadius: "4px", width: "80%", marginBottom: "6px" }}/>
+              <div style={{ height: "6px", background: "#E2E8F0", borderRadius: "4px", width: "70%", marginBottom: "12px" }}/>
+              <div style={{ display: "inline-block", background: preview.color_acento || "#C9A020", padding: "6px 14px", borderRadius: "3px", fontSize: "11px", fontWeight: 700, color: "#fff" }}>Empieza gratis →</div>
+            </div>
+          </div>
+          <p style={{ fontSize: "11px", color: "var(--ink60)", marginTop: "8px", textAlign: "center" }}>Vista previa aproximada</p>
+        </div>
+
+        {/* Presets */}
+        <div style={{ background: "#fff", borderRadius: "12px", padding: "28px", boxShadow: "0 1px 8px rgba(13,35,71,0.07)", gridColumn: "1/-1" }}>
+          <h3 style={{ fontSize: "16px", fontWeight: 700, color: "var(--blue-d)", marginBottom: "8px" }}>✨ Paletas predefinidas</h3>
+          <p style={{ fontSize: "13px", color: "var(--ink60)", marginBottom: "20px" }}>Haz click en una paleta para aplicarla. Recuerda guardar después.</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "12px" }}>
+            {presets.map((preset) => (
+              <button key={preset.name} onClick={() => {
+                handleChange("color_primario", preset.primario);
+                handleChange("color_acento", preset.acento);
+                handleChange("color_secundario", preset.secundario);
+                setDatos(d => ({ ...d, color_primario: preset.primario, color_acento: preset.acento, color_secundario: preset.secundario }));
+                setPreview(p => ({ ...p, color_primario: preset.primario, color_acento: preset.acento, color_secundario: preset.secundario }));
+              }} style={{ background: "transparent", border: "1px solid #E2E8F0", borderRadius: "10px", padding: "14px", cursor: "pointer", textAlign: "left", transition: "border-color .2s, box-shadow .2s" }}
+                onMouseOver={e => { e.currentTarget.style.borderColor = preset.primario; e.currentTarget.style.boxShadow = `0 4px 16px ${preset.primario}22`; }}
+                onMouseOut={e => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.boxShadow = "none"; }}
+              >
+                <div style={{ display: "flex", gap: "6px", marginBottom: "10px" }}>
+                  <div style={{ width: "32px", height: "32px", borderRadius: "6px", background: preset.primario }}/>
+                  <div style={{ width: "32px", height: "32px", borderRadius: "6px", background: preset.acento }}/>
+                  <div style={{ width: "32px", height: "32px", borderRadius: "6px", background: preset.secundario }}/>
+                </div>
+                <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--ink)" }}>{preset.name}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ════════════════════════════
    APP PRINCIPAL
 ════════════════════════════ */
 export default function AdminPanel() {
@@ -570,11 +739,12 @@ export default function AdminPanel() {
   };
 
   const nav = [
-    { id: "dashboard", label: "Dashboard",  icon: Icon.dashboard },
-    { id: "alumnos",   label: "Alumnos",    icon: Icon.alumnos },
-    { id: "supuestos", label: "Supuestos",  icon: Icon.supuestos },
-    { id: "contenido", label: "Contenido",  icon: Icon.contenido },
-    { id: "planes",    label: "Precios",    icon: Icon.planes },
+    { id: "dashboard",  label: "Dashboard",  icon: Icon.dashboard },
+    { id: "alumnos",    label: "Alumnos",    icon: Icon.alumnos },
+    { id: "supuestos",  label: "Supuestos",  icon: Icon.supuestos },
+    { id: "contenido",  label: "Contenido",  icon: Icon.contenido },
+    { id: "planes",     label: "Precios",    icon: Icon.planes },
+    { id: "apariencia", label: "Apariencia", icon: Icon.apariencia },
   ];
 
   if (loading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", fontFamily: "var(--f)", color: "var(--ink60)" }}>Cargando...</div>;
@@ -648,11 +818,12 @@ export default function AdminPanel() {
 
         {/* Content */}
         <div style={{ padding: "36px 40px", maxWidth: "1200px" }}>
-          {seccion === "dashboard" && <Dashboard stats={stats} />}
-          {seccion === "alumnos"   && <Alumnos />}
-          {seccion === "supuestos" && <Supuestos />}
-          {seccion === "contenido" && <ContenidoWeb />}
-          {seccion === "planes"    && <Planes />}
+          {seccion === "dashboard"  && <Dashboard stats={stats} />}
+          {seccion === "alumnos"    && <Alumnos />}
+          {seccion === "supuestos"  && <Supuestos />}
+          {seccion === "contenido"  && <ContenidoWeb />}
+          {seccion === "planes"     && <Planes />}
+          {seccion === "apariencia" && <Apariencia />}
         </div>
       </div>
     </div>

@@ -21,12 +21,26 @@ function useSiteData() {
         supabase.from("alumnos").select("estado, plan"),
       ]);
 
-      // Convertir array de contenido a objeto clave:valor
       const contObj = {};
       cont?.forEach(c => { contObj[c.clave] = c.valor; });
       setContenido(contObj);
 
-      // Stats dinámicos desde alumnos reales
+      // Aplicar colores dinámicos a las variables CSS
+      if (contObj.color_primario || contObj.color_acento || contObj.color_secundario) {
+        const root = document.documentElement;
+        if (contObj.color_primario) {
+          root.style.setProperty("--blue",   contObj.color_primario);
+          root.style.setProperty("--blue-l", contObj.color_primario + "CC");
+        }
+        if (contObj.color_secundario) {
+          root.style.setProperty("--blue-d", contObj.color_secundario);
+        }
+        if (contObj.color_acento) {
+          root.style.setProperty("--gold",   contObj.color_acento);
+          root.style.setProperty("--gold-l", contObj.color_acento + "CC");
+        }
+      }
+
       const activos = alumnos?.filter(a => a.estado === "activo").length || 0;
       setStats({
         aspirantes: activos > 0 ? `${activos}+` : "300+",
@@ -35,7 +49,6 @@ function useSiteData() {
         simulacros: contObj.stats_simulacros || "12",
       });
 
-      // Planes con estructura esperada por la web
       if (pl && pl.length > 0) {
         setPlanes(pl.map((p, i) => ({
           id: p.id,
@@ -467,6 +480,8 @@ function HomePage({ onNavigate }) {
   const heroSub      = contenido.hero_descripcion || SITE.heroSub;
   const aboutTitulo  = contenido.about_titulo   || "Formados por funcionarios. Para funcionarios.";
   const aboutTexto   = contenido.about_texto    || "";
+  const siteName     = contenido.site_nombre    || SITE.name;
+  const siteTagline  = contenido.site_tagline   || SITE.tagline;
   const planesData   = planes.length > 0 ? planes : SITE.plans;
   const statsData    = loaded ? [
     { val: stats.aspirantes?.replace(/\D/g,"") || "300", suf: "+", label: "Aspirantes activos" },
@@ -493,8 +508,8 @@ function HomePage({ onNavigate }) {
         <a href="#inicio" className="nav-brand">
           <Logo size={scrolled ? 52 : 62} />
           <div>
-            <div className="nav-name">{SITE.name}</div>
-            <div className="nav-sub">{SITE.tagline}</div>
+            <div className="nav-name">{siteName}</div>
+            <div className="nav-sub">{siteTagline}</div>
           </div>
         </a>
         <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
