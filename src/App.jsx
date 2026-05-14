@@ -102,7 +102,7 @@ const SITE = {
     { val: "12",  suf: "",  label: "Simulacros al año" },
   ],
   nav: [
-    { label: "Supuesto gratis", href: "#inicio" },
+    { label: "Supuesto gratis", href: "supuesto-gratis" },
     { label: "Tarifas",         href: "tarifas" },
     { label: "Cómo funciona",   href: "#como-funciona" },
     { label: "Temario",         href: "#temario" },
@@ -483,7 +483,7 @@ function HomePage({ onNavigate }) {
 
   const handleNav = (href) => {
     setMenuOpen(false);
-    if (href === "tarifas") { onNavigate("tarifas"); return; }
+    if (href === "tarifas" || href === "supuesto-gratis") { onNavigate(href); return; }
   };
 
   return (
@@ -500,8 +500,8 @@ function HomePage({ onNavigate }) {
         <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
           {SITE.nav.map(l => (
             <li key={l.label}>
-              {l.href === "tarifas" ? (
-                <a href="#" onClick={(e) => { e.preventDefault(); handleNav("tarifas"); }}>{l.label}</a>
+              {l.href === "tarifas" || l.href === "supuesto-gratis" ? (
+                <a href="#" onClick={(e) => { e.preventDefault(); handleNav(l.href); }}>{l.label}</a>
               ) : (
                 <a href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</a>
               )}
@@ -626,6 +626,127 @@ function HomePage({ onNavigate }) {
         </div>
         <div className="footer-bottom"><span className="f-copy">© 2026 Preparador IIPP — Todos los derechos reservados</span><span className="f-copy">Hecho con ❤ para opositores</span></div>
       </footer>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   SUPUESTO GRATIS PAGE
+═══════════════════════════════════════════ */
+const PDF_ID = "1ZSXSewL-ph2NCgeySL2EDQVKPOOzTT5c";
+const PDF_EMBED = `https://drive.google.com/file/d/${PDF_ID}/preview`;
+const PDF_DOWNLOAD = `https://drive.google.com/uc?export=download&id=${PDF_ID}`;
+
+function SupuestoGratis({ onBack, onTarifas }) {
+  const [pdfLoaded, setPdfLoaded] = useState(false);
+
+  return (
+    <div style={{ background: "#fff", minHeight: "100vh", fontFamily: "var(--body)" }}>
+
+      {/* HEADER */}
+      <div style={{ borderBottom: "1px solid var(--ink25)", padding: "16px 64px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "#fff", zIndex: 100 }}>
+        <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} style={{ display: "flex", alignItems: "center", gap: "14px", textDecoration: "none" }}>
+          <Logo size={44} />
+          <div>
+            <div style={{ fontFamily: "var(--serif)", fontSize: "17px", color: "var(--blue-d)", fontWeight: 700 }}>Preparador IIPP</div>
+            <div style={{ fontSize: "10px", color: "var(--gold)", letterSpacing: "2px", textTransform: "uppercase", fontWeight: 600 }}>Oposiciones IIPP</div>
+          </div>
+        </a>
+        <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+          <a href={PDF_DOWNLOAD} download style={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "9px 20px", background: "var(--offwhite)", color: "var(--blue)", fontWeight: 600, fontSize: "13px", borderRadius: "3px", textDecoration: "none", border: "1px solid var(--ink25)", transition: "background .2s" }}
+            onMouseOver={e => e.currentTarget.style.background = "var(--offwhite2)"}
+            onMouseOut={e => e.currentTarget.style.background = "var(--offwhite)"}
+          >
+            ↓ Descargar PDF
+          </a>
+          <button onClick={onTarifas} style={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "9px 20px", background: "var(--blue)", color: "#fff", fontWeight: 600, fontSize: "13px", borderRadius: "3px", border: "none", cursor: "pointer", transition: "background .2s" }}
+            onMouseOver={e => e.currentTarget.style.background = "var(--blue-d)"}
+            onMouseOut={e => e.currentTarget.style.background = "var(--blue)"}
+          >
+            Ver tarifas →
+          </button>
+        </div>
+      </div>
+
+      {/* HERO STRIP */}
+      <div style={{ background: "linear-gradient(135deg, var(--blue-d), var(--blue))", padding: "48px 64px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "40px", flexWrap: "wrap" }}>
+        <div>
+          <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--gold-l)", fontWeight: 600, marginBottom: "12px" }}>Supuesto Práctico Gratuito</div>
+          <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(28px,3vw,42px)", fontWeight: 900, color: "#fff", lineHeight: 1.1, letterSpacing: "-1px", marginBottom: "12px" }}>
+            Prueba nuestro método<br/><em style={{ fontStyle: "italic", color: "var(--gold-l)" }}>sin compromiso</em>
+          </h1>
+          <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.65)", fontWeight: 300, maxWidth: "480px", lineHeight: 1.6 }}>
+            Accede a un supuesto práctico real de Instituciones Penitenciarias, con resolución detallada incluida. Sin registro, sin tarjeta.
+          </p>
+        </div>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          {[["📄","PDF incluido"],["✅","Resolución detallada"],["⚖️","Caso real IIPP"]].map(([icon, label]) => (
+            <div key={label} style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "8px", padding: "14px 20px", textAlign: "center" }}>
+              <div style={{ fontSize: "24px", marginBottom: "6px" }}>{icon}</div>
+              <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* PDF VIEWER */}
+      <div style={{ maxWidth: "960px", margin: "0 auto", padding: "40px 24px" }}>
+        <div style={{ background: "#fff", borderRadius: "12px", border: "1px solid var(--ink25)", overflow: "hidden", boxShadow: "0 4px 32px rgba(13,35,71,0.08)" }}>
+
+          {/* Toolbar */}
+          <div style={{ padding: "14px 24px", background: "var(--offwhite)", borderBottom: "1px solid var(--ink25)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FF5F57" }}/>
+              <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FEBC2E" }}/>
+              <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#28C840" }}/>
+              <span style={{ marginLeft: "8px", fontSize: "13px", color: "var(--ink60)", fontWeight: 500 }}>Supuesto Práctico — Preparador IIPP</span>
+            </div>
+            <a href={PDF_DOWNLOAD} download style={{ fontSize: "12px", color: "var(--blue)", fontWeight: 600, textDecoration: "none" }}>↓ Descargar</a>
+          </div>
+
+          {/* iFrame visor */}
+          {!pdfLoaded && (
+            <div style={{ height: "200px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--ink60)", fontSize: "14px" }}>
+              Cargando supuesto...
+            </div>
+          )}
+          <iframe
+            src={PDF_EMBED}
+            style={{ width: "100%", height: "900px", border: "none", display: pdfLoaded ? "block" : "none" }}
+            allow="autoplay"
+            onLoad={() => setPdfLoaded(true)}
+            title="Supuesto Práctico IIPP"
+          />
+        </div>
+
+        {/* CTA debajo del PDF */}
+        <div style={{ marginTop: "48px", background: "linear-gradient(135deg, var(--blue-d), var(--blue))", borderRadius: "12px", padding: "40px 48px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "32px", flexWrap: "wrap" }}>
+          <div>
+            <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--gold-l)", fontWeight: 600, marginBottom: "12px" }}>¿Te ha gustado?</div>
+            <h2 style={{ fontFamily: "var(--serif)", fontSize: "clamp(22px,2.5vw,32px)", fontWeight: 900, color: "#fff", lineHeight: 1.1, marginBottom: "10px" }}>
+              Recibe 3 supuestos nuevos cada semana
+            </h2>
+            <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.6)", fontWeight: 300 }}>
+              Suscríbete desde 49€/mes. Sin permanencia. Cancela cuando quieras.
+            </p>
+          </div>
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+            <button onClick={onTarifas} style={{ padding: "16px 36px", background: "var(--gold)", color: "var(--blue-d)", fontWeight: 700, fontSize: "15px", border: "none", borderRadius: "3px", cursor: "pointer", transition: "background .2s, transform .2s" }}
+              onMouseOver={e => { e.currentTarget.style.background = "var(--gold-l)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+              onMouseOut={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.transform = "none"; }}
+            >Ver tarifas →</button>
+            <button onClick={onBack} style={{ padding: "14px 32px", background: "transparent", color: "rgba(255,255,255,0.7)", fontWeight: 500, fontSize: "15px", border: "1.5px solid rgba(255,255,255,0.25)", borderRadius: "3px", cursor: "pointer", transition: "border-color .2s, color .2s" }}
+              onMouseOver={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.7)"; e.currentTarget.style.color = "#fff"; }}
+              onMouseOut={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)"; e.currentTarget.style.color = "rgba(255,255,255,0.7)"; }}
+            >Volver al inicio</button>
+          </div>
+        </div>
+      </div>
+
+      {/* FOOTER mini */}
+      <div style={{ background: "var(--blue-d)", padding: "24px 64px", textAlign: "center", marginTop: "40px" }}>
+        <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)" }}>© 2026 Preparador IIPP — Todos los derechos reservados</p>
+      </div>
     </div>
   );
 }
@@ -779,8 +900,9 @@ export default function App() {
         @media(max-width:768px){.nav{padding:0 20px;height:76px;}.nav-name{font-size:16px;}.nav-links{display:none;}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:76px;left:0;right:0;bottom:0;background:#fff;padding:40px 24px;gap:20px;align-items:flex-start;}.nav-links.open a{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink)!important;}.mob-btn{display:block;}.sp{padding:70px 24px;}.hero-inner{padding:100px 24px 70px;}.about-left,.about-right{padding:50px 24px;}.cta-sec,.stats-band,.footer{padding:70px 24px;}.footer-top{grid-template-columns:1fr;gap:36px;}.feat-grid{grid-template-columns:1fr;}.steps-grid{grid-template-columns:1fr;}.stats-band{grid-template-columns:repeat(2,1fr);}.stat-item{border-right:none;border-bottom:1px solid var(--ink25);}.pricing-grid{grid-template-columns:1fr;padding:24px 20px 60px;gap:28px;}.pricing-header{padding:16px 20px;flex-wrap:wrap;gap:12px;}.pricing-hero{padding:60px 20px 16px;}}
       `}</style>
 
-      {page === "home"    && <HomePage onNavigate={navigate} />}
-      {page === "tarifas" && <PricingPage onBack={() => navigate("home")} plans={SITE.plans} />}
+      {page === "home"            && <HomePage onNavigate={navigate} />}
+      {page === "tarifas"         && <PricingPage onBack={() => navigate("home")} plans={SITE.plans} />}
+      {page === "supuesto-gratis" && <SupuestoGratis onBack={() => navigate("home")} onTarifas={() => navigate("tarifas")} />}
     </div>
   );
 }
