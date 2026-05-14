@@ -1,4 +1,70 @@
 import { useState, useEffect, useRef } from "react";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  "https://vsagqtaqnpjxedzisxam.supabase.co",
+  "sb_publishable_E-Jv0XqC6qmGDgGCnfvg_A_mnPYxNGG"
+);
+
+/* ── Hook: carga contenido dinámico de Supabase ── */
+function useSiteData() {
+  const [contenido, setContenido] = useState({});
+  const [planes, setPlanes] = useState([]);
+  const [stats, setStats] = useState({});
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      const [{ data: cont }, { data: pl }, { data: alumnos }] = await Promise.all([
+        supabase.from("contenido_web").select("*"),
+        supabase.from("planes").select("*").eq("activo", true).order("precio"),
+        supabase.from("alumnos").select("estado, plan"),
+      ]);
+
+      // Convertir array de contenido a objeto clave:valor
+      const contObj = {};
+      cont?.forEach(c => { contObj[c.clave] = c.valor; });
+      setContenido(contObj);
+
+      // Stats dinámicos desde alumnos reales
+      const activos = alumnos?.filter(a => a.estado === "activo").length || 0;
+      setStats({
+        aspirantes: activos > 0 ? `${activos}+` : "300+",
+        supuestos: contObj.stats_supuestos ? `${contObj.stats_supuestos}+` : "150+",
+        satisfaccion: contObj.stats_satisfaccion ? `${contObj.stats_satisfaccion}%` : "95%",
+        simulacros: contObj.stats_simulacros || "12",
+      });
+
+      // Planes con estructura esperada por la web
+      if (pl && pl.length > 0) {
+        setPlanes(pl.map((p, i) => ({
+          id: p.id,
+          name: p.nombre,
+          period: p.periodo,
+          price: p.precio,
+          original: p.precio_original,
+          perMonth: p.precio_mes,
+          saving: p.precio_original ? p.precio_original - p.precio : null,
+          badge: i === 1 ? "Más elegido" : i === 3 ? "Máximo ahorro" : null,
+          features: [
+            "Acceso completo al aula virtual",
+            "3 supuestos prácticos semanales",
+            "Resoluciones detalladas",
+            "Simulacro de examen mensual",
+            "PDFs y vídeos explicativos",
+            "Normativa adaptada a tu CCAA",
+            ...(i === 3 ? ["Acceso prioritario a novedades"] : []),
+          ],
+        })));
+      }
+
+      setLoaded(true);
+    }
+    fetchData();
+  }, []);
+
+  return { contenido, planes, stats, loaded };
+}
 
 /* ═══════════════════════════════════════════
    DATOS
@@ -6,7 +72,7 @@ import { useState, useEffect, useRef } from "react";
 const SITE = {
   name: "Preparador IIPP",
   tagline: "Oposiciones IIPP · Formación Profesional",
-  heroTitle: "Prepárate IIPP:",
+  heroTitle: "Prepárate IP:",
   heroTitleItalic: "Supuestos Prácticos Reales",
   heroSub: "La plataforma de referencia para preparar tu oposición a Instituciones Penitenciarias con casos reales, resoluciones detalladas y un método avalado por funcionarios en activo.",
   cta: "Empieza gratis",
@@ -219,6 +285,8 @@ function CheckIcon() {
    PRICING PAGE
 ═══════════════════════════════════════════ */
 function PricingPage({ onBack }) {
+  const { planes, loaded } = useSiteData();
+  const planesData = planes.length > 0 ? planes : SITE.plans;
   return (
     <div style={{ background: "#fff", minHeight: "100vh" }}>
       {/* HEADER */}
@@ -251,7 +319,7 @@ function PricingPage({ onBack }) {
 
       {/* PLANS */}
       <div className="pricing-grid">
-        {SITE.plans.map((plan, i) => {
+        {planesData.map((plan, i) => {
           const isPopular = plan.badge === "Más elegido";
           const isBest = plan.badge === "Máximo ahorro";
           const highlighted = isPopular || isBest;
@@ -392,6 +460,20 @@ function HomePage({ onNavigate }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
+  const { contenido, planes, stats, loaded } = useSiteData();
+
+  // Datos dinámicos con fallback a los estáticos
+  const heroTitle    = contenido.hero_titulo    || SITE.heroTitle;
+  const heroSub      = contenido.hero_descripcion || SITE.heroSub;
+  const aboutTitulo  = contenido.about_titulo   || "Formados por funcionarios. Para funcionarios.";
+  const aboutTexto   = contenido.about_texto    || "";
+  const planesData   = planes.length > 0 ? planes : SITE.plans;
+  const statsData    = loaded ? [
+    { val: stats.aspirantes?.replace(/\D/g,"") || "300", suf: "+", label: "Aspirantes activos" },
+    { val: stats.supuestos?.replace(/\D/g,"")  || "150", suf: "+", label: "Supuestos disponibles" },
+    { val: stats.satisfaccion?.replace(/\D/g,"") || "95", suf: "%", label: "Tasa de satisfacción" },
+    { val: stats.simulacros || "12", suf: "", label: "Simulacros al año" },
+  ] : SITE.stats;
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 60);
@@ -440,8 +522,8 @@ function HomePage({ onNavigate }) {
         <div className="hero-inner">
           <div>
             <div className="hero-eyebrow">Oposiciones · Instituciones Penitenciarias · España</div>
-            <h1 className="hero-h1">Prepárate IIPP:<br/><em>Supuestos Prácticos</em><br/>Reales</h1>
-            <p className="hero-sub">{SITE.heroSub}</p>
+            <h1 className="hero-h1">{heroTitle}<br/><em>Supuestos Prácticos</em><br/>Reales</h1>
+            <p className="hero-sub">{heroSub}</p>
             <div className="hero-btns">
               <a href="#" className="btn-gold" onClick={(e) => { e.preventDefault(); onNavigate("tarifas"); }}>{SITE.cta} →</a>
               <a href="#como-funciona" className="btn-ghost-w">Cómo funciona</a>
@@ -478,7 +560,7 @@ function HomePage({ onNavigate }) {
 
       {/* STATS */}
       <section className="stats-band">
-        {SITE.stats.map((s,i)=>(<div key={i} className="stat-item"><div className="stat-bar"/><StatBlock val={s.val} suf={s.suf} label={s.label}/></div>))}
+        {statsData.map((s,i)=>(<div key={i} className="stat-item"><div className="stat-bar"/><StatBlock val={s.val} suf={s.suf} label={s.label}/></div>))}
       </section>
 
       {/* ABOUT */}
@@ -491,7 +573,7 @@ function HomePage({ onNavigate }) {
           <Reveal delay={0.1}>
             <div className="section-tag" style={{ marginBottom:"20px" }}>Nuestra historia</div>
             <p>Somos una <strong>academia online especializada en la preparación de oposiciones a Instituciones Penitenciarias</strong>, creada y dirigida por funcionarios en activo que conocen de primera mano qué se evalúa y cómo.</p>
-            <p>Cada semana, <strong>más de 300 aspirantes confían en nuestro método</strong>: práctico, actualizado y centrado en lo que realmente importa en el examen.</p>
+            <p>{aboutTexto || "Cada semana, más de 300 aspirantes confían en nuestro método: práctico, actualizado y centrado en lo que realmente importa en el examen."}</p>
             <div style={{display:"flex",gap:"12px",marginTop:"36px",flexWrap:"wrap"}}>
               <a href="#" style={{padding:"15px 32px",background:"var(--blue)",color:"#fff",fontWeight:700,fontSize:"15px",borderRadius:"3px",textDecoration:"none"}} onMouseOver={e=>e.currentTarget.style.background="var(--blue-d)"} onMouseOut={e=>e.currentTarget.style.background="var(--blue)"}>Conoce el método →</a>
             </div>
@@ -697,8 +779,8 @@ export default function App() {
         @media(max-width:768px){.nav{padding:0 20px;height:76px;}.nav-name{font-size:16px;}.nav-links{display:none;}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:76px;left:0;right:0;bottom:0;background:#fff;padding:40px 24px;gap:20px;align-items:flex-start;}.nav-links.open a{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink)!important;}.mob-btn{display:block;}.sp{padding:70px 24px;}.hero-inner{padding:100px 24px 70px;}.about-left,.about-right{padding:50px 24px;}.cta-sec,.stats-band,.footer{padding:70px 24px;}.footer-top{grid-template-columns:1fr;gap:36px;}.feat-grid{grid-template-columns:1fr;}.steps-grid{grid-template-columns:1fr;}.stats-band{grid-template-columns:repeat(2,1fr);}.stat-item{border-right:none;border-bottom:1px solid var(--ink25);}.pricing-grid{grid-template-columns:1fr;padding:24px 20px 60px;gap:28px;}.pricing-header{padding:16px 20px;flex-wrap:wrap;gap:12px;}.pricing-hero{padding:60px 20px 16px;}}
       `}</style>
 
-      {page === "home" && <HomePage onNavigate={navigate} />}
-      {page === "tarifas" && <PricingPage onBack={() => navigate("home")} />}
+      {page === "home"    && <HomePage onNavigate={navigate} />}
+      {page === "tarifas" && <PricingPage onBack={() => navigate("home")} plans={SITE.plans} />}
     </div>
   );
 }
