@@ -243,7 +243,7 @@ function StatBlock({ val, suf, label }) {
   );
 }
 
-function Logo({ size = 56 }) {
+function Logo({ size = 100 }) {
   return (
     <img
       src="/logo-iipp.png"
