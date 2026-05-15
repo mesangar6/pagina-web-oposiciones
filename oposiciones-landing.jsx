@@ -243,10 +243,10 @@ function StatBlock({ val, suf, label }) {
   );
 }
 
-function Logo({ size = 56 }) {
+function Logo({ size = 100 }) {
   return (
     <img
-      src="/logo-iipp-shield.png"
+      src="/logo-iipp.png"
       alt="Preparador IIPP"
       style={{
         width: size,
@@ -298,7 +298,7 @@ function NavBar({ links, scrolled = true }) {
 
       <nav className={`nav ${scrolled ? "down" : ""}`}>
         <a href="#" onClick={(e) => { e.preventDefault(); links.onHome(); }} className="nav-brand">
-          <Logo size={130} />
+          <Logo size={90} />
         </a>
         <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
           {links.items.map((item, i) => (
@@ -855,7 +855,7 @@ export default function App() {
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         html{scroll-behavior:smooth;}
 
-        .nav{position:fixed;top:0;left:0;right:0;z-index:10000;height:130px;padding:8px 64px;display:flex;align-items:center;justify-content:space-between;transition:background .35s,box-shadow .35s;background:rgba(255,255,255,0);overflow:visible;}
+        .nav{position:fixed;top:0;left:0;right:0;z-index:10000;height:100px;padding:0 64px;display:flex;align-items:center;justify-content:space-between;transition:background .35s,box-shadow .35s;background:rgba(255,255,255,0);}
         .nav.down{background:rgba(255,255,255,.98);backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--ink25);}
         .nav-brand{display:flex;align-items:center;gap:16px;text-decoration:none;}
         .nav-name{font-family:var(--serif);font-size:22px;color:var(--blue-d);line-height:1.05;letter-spacing:-.3px;}
@@ -869,7 +869,7 @@ export default function App() {
         .hero{position:relative;min-height:100vh;background:#fff;display:flex;align-items:center;overflow:hidden;}
         .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%231E3A6E' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;}
         .hero-bg-text{position:absolute;right:-80px;bottom:-60px;font-family:var(--serif);font-size:clamp(260px,30vw,420px);font-weight:900;color:rgba(30,58,110,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-10px;}
-        .hero-inner{position:relative;z-index:2;width:100%;padding:180px 80px 100px;display:grid;grid-template-columns:1.3fr 1fr;gap:72px;align-items:center;}
+        .hero-inner{position:relative;z-index:2;width:100%;padding:140px 80px 100px;display:grid;grid-template-columns:1.3fr 1fr;gap:72px;align-items:center;}
         .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:32px;}
         .hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold);}
         .hero-h1{font-family:var(--serif);font-size:clamp(52px,6.5vw,96px);font-weight:900;color:var(--blue-d);line-height:1;letter-spacing:-2.5px;margin-bottom:32px;}
