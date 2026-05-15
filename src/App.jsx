@@ -247,45 +247,81 @@ function Logo({ size = 56 }) {
   const h = size * 1.15;
   return (
     <svg width={size} height={h} viewBox="0 0 100 115" fill="none">
-      <circle cx="50" cy="60" r="46" fill="none" stroke="#1E3A6E" strokeWidth="3"/>
-      <circle cx="50" cy="60" r="42" fill="none" stroke="#C9A020" strokeWidth="1"/>
-      <path d="M50 20 L82 34 L82 68 Q82 92 50 106 Q18 92 18 68 L18 34 Z" fill="#1E3A6E" stroke="#C9A020" strokeWidth="2"/>
-      <path d="M50 26 L76 38 L76 67 Q76 88 50 100 Q24 88 24 67 L24 38 Z" fill="none" stroke="#C9A020" strokeWidth="1"/>
-      <path d="M50 31 L72 42 L72 66 Q72 84 50 96 Q28 84 28 66 L28 42 Z" fill="#FFFFFF"/>
-      <rect x="42" y="8" width="16" height="14" rx="1" fill="#8B6E48" stroke="#6B5030" strokeWidth="0.5"/>
-      <rect x="40" y="5" width="5" height="7" rx="1" fill="#8B6E48" stroke="#6B5030" strokeWidth="0.5"/>
-      <rect x="47" y="5" width="5" height="7" rx="1" fill="#8B6E48" stroke="#6B5030" strokeWidth="0.5"/>
-      <rect x="54" y="5" width="5" height="7" rx="1" fill="#8B6E48" stroke="#6B5030" strokeWidth="0.5"/>
-      <rect x="46" y="15" width="7" height="7" rx="1" fill="#4A2E10"/>
-      <path d="M18 34 L30 40 L30 66 Q30 82 50 96 Q18 92 18 68 Z" fill="#1A3468"/>
-      <path d="M82 34 L70 40 L70 66 Q70 82 50 96 Q82 92 82 68 Z" fill="#1A3468"/>
-      <text x="23" y="64" textAnchor="middle" fontFamily="Arial" fontSize="7" fill="#C9A020">★</text>
-      <text x="77" y="64" textAnchor="middle" fontFamily="Arial" fontSize="7" fill="#C9A020">★</text>
-      <ellipse cx="32" cy="58" rx="3.5" ry="6" transform="rotate(-25 32 58)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="29" cy="67" rx="3.5" ry="6" transform="rotate(-10 29 67)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="29" cy="76" rx="3.5" ry="6" transform="rotate(8 29 76)"  fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="33" cy="84" rx="3.5" ry="6" transform="rotate(24 33 84)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="68" cy="58" rx="3.5" ry="6" transform="rotate(25 68 58)"  fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="71" cy="67" rx="3.5" ry="6" transform="rotate(10 71 67)"  fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="71" cy="76" rx="3.5" ry="6" transform="rotate(-8 71 76)"  fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="67" cy="84" rx="3.5" ry="6" transform="rotate(-24 67 84)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <path d="M38 92 Q50 97 62 92" fill="none" stroke="#2A7A30" strokeWidth="1.2" strokeLinecap="round"/>
-      <rect x="49" y="44" width="2" height="30" fill="#C9A020"/>
-      <rect x="35" y="51" width="30" height="2.5" rx="1" fill="#C9A020"/>
-      <line x1="38" y1="53" x2="36" y2="63" stroke="#C9A020" strokeWidth="0.8"/>
-      <path d="M32 63 Q38 66 44 63" fill="none" stroke="#C9A020" strokeWidth="1.5" strokeLinecap="round"/>
-      <line x1="32" y1="63" x2="44" y2="63" stroke="#C9A020" strokeWidth="0.8"/>
-      <line x1="62" y1="53" x2="64" y2="63" stroke="#C9A020" strokeWidth="0.8"/>
-      <path d="M58 63 Q64 66 70 63" fill="none" stroke="#C9A020" strokeWidth="1.5" strokeLinecap="round"/>
-      <line x1="58" y1="63" x2="70" y2="63" stroke="#C9A020" strokeWidth="0.8"/>
-      <circle cx="42" cy="78" r="5" fill="none" stroke="#8B6E48" strokeWidth="2"/>
-      <circle cx="42" cy="78" r="2.5" fill="none" stroke="#8B6E48" strokeWidth="1.2"/>
-      <rect x="46" y="76" width="16" height="3" rx="1" fill="#8B6E48"/>
-      <rect x="58" y="79" width="3" height="4" rx="0.5" fill="#8B6E48"/>
-      <rect x="62" y="79" width="2.5" height="3" rx="0.5" fill="#8B6E48"/>
-      {/* IIPP badge — fondo blanco, texto azul, bien visible */}
-      <rect x="33" y="86" width="34" height="13" rx="6" fill="#FFFFFF" stroke="#1E3A6E" strokeWidth="1.2"/>
-      <text x="50" y="96" textAnchor="middle" fontFamily="Arial Black, Arial, sans-serif" fontSize="8.5" fontWeight="900" fill="#1E3A6E" letterSpacing="1">IIPP</text>
+      {/* Outer decorative rings */}
+      <circle cx="50" cy="56" r="48" fill="none" stroke="#1E3A6E" strokeWidth="2.5"/>
+      <circle cx="50" cy="56" r="45" fill="none" stroke="#1E3A6E" strokeWidth="1.5"/>
+      <circle cx="50" cy="56" r="42" fill="none" stroke="#C9A020" strokeWidth="0.8"/>
+
+      {/* Main shield body */}
+      <path d="M50 14 L85 30 L85 64 Q85 90 50 108 Q15 90 15 64 L15 30 Z" fill="#1E3A6E" stroke="#C9A020" strokeWidth="2"/>
+
+      {/* Gold inner border */}
+      <path d="M50 20 L79 34 L79 63 Q79 86 50 102 Q21 86 21 63 L21 34 Z" fill="none" stroke="#C9A020" strokeWidth="1.2"/>
+
+      {/* White inner shield */}
+      <path d="M50 25 L75 37 L75 62 Q75 82 50 97 Q25 82 25 62 L25 37 Z" fill="#FFFFFF"/>
+
+      {/* Blue side panels */}
+      <path d="M15 30 L27 36 L27 62 Q27 80 50 97 Q15 90 15 64 Z" fill="#1A3468" opacity="0.9"/>
+      <path d="M85 30 L73 36 L73 62 Q73 80 50 97 Q85 90 85 64 Z" fill="#1A3468" opacity="0.9"/>
+
+      {/* Tower */}
+      <rect x="40" y="4" width="20" height="14" rx="1.5" fill="#8B6E48" stroke="#6B5030" strokeWidth="0.6"/>
+      <rect x="37" y="1" width="6" height="8" rx="1" fill="#8B6E48" stroke="#6B5030" strokeWidth="0.5"/>
+      <rect x="45.5" y="1" width="6" height="8" rx="1" fill="#8B6E48" stroke="#6B5030" strokeWidth="0.5"/>
+      <rect x="54" y="1" width="6" height="8" rx="1" fill="#8B6E48" stroke="#6B5030" strokeWidth="0.5"/>
+      <rect x="46" y="11" width="8" height="7" rx="1" fill="#4A2E10"/>
+
+      {/* Stars on sides */}
+      <text x="20" y="53" textAnchor="middle" fontFamily="Arial" fontSize="5" fill="#C9A020">★</text>
+      <text x="20" y="60" textAnchor="middle" fontFamily="Arial" fontSize="5" fill="#C9A020">★</text>
+      <text x="20" y="67" textAnchor="middle" fontFamily="Arial" fontSize="5" fill="#C9A020">★</text>
+      <text x="80" y="53" textAnchor="middle" fontFamily="Arial" fontSize="5" fill="#C9A020">★</text>
+      <text x="80" y="60" textAnchor="middle" fontFamily="Arial" fontSize="5" fill="#C9A020">★</text>
+      <text x="80" y="67" textAnchor="middle" fontFamily="Arial" fontSize="5" fill="#C9A020">★</text>
+
+      {/* Laurel wreath - left */}
+      <ellipse cx="30" cy="50" rx="4" ry="7" transform="rotate(-30 30 50)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
+      <ellipse cx="27" cy="58" rx="4" ry="7" transform="rotate(-15 27 58)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
+      <ellipse cx="27" cy="67" rx="4" ry="7" transform="rotate(0 27 67)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
+      <ellipse cx="29" cy="76" rx="4" ry="7" transform="rotate(15 29 76)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
+      <ellipse cx="34" cy="83" rx="4" ry="6" transform="rotate(30 34 83)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
+
+      {/* Laurel wreath - right */}
+      <ellipse cx="70" cy="50" rx="4" ry="7" transform="rotate(30 70 50)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
+      <ellipse cx="73" cy="58" rx="4" ry="7" transform="rotate(15 73 58)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
+      <ellipse cx="73" cy="67" rx="4" ry="7" transform="rotate(0 73 67)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
+      <ellipse cx="71" cy="76" rx="4" ry="7" transform="rotate(-15 71 76)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
+      <ellipse cx="66" cy="83" rx="4" ry="6" transform="rotate(-30 66 83)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
+
+      {/* Laurel bottom tie */}
+      <path d="M38 90 Q50 96 62 90" fill="none" stroke="#2A7A30" strokeWidth="1.5" strokeLinecap="round"/>
+
+      {/* Balance - center pole */}
+      <rect x="49" y="38" width="2" height="30" fill="#C9A020"/>
+      {/* Balance - top diamond */}
+      <polygon points="50,35 53,40 50,45 47,40" fill="#C9A020"/>
+      {/* Balance - beam */}
+      <rect x="34" y="44" width="32" height="2.5" rx="1" fill="#C9A020"/>
+      {/* Left chain + plate */}
+      <line x1="37" y1="47" x2="35" y2="56" stroke="#C9A020" strokeWidth="0.8"/>
+      <path d="M30 56 Q35 59 40 56" fill="none" stroke="#C9A020" strokeWidth="1.5" strokeLinecap="round"/>
+      <line x1="30" y1="56" x2="40" y2="56" stroke="#C9A020" strokeWidth="0.8"/>
+      {/* Right chain + plate */}
+      <line x1="63" y1="47" x2="65" y2="56" stroke="#C9A020" strokeWidth="0.8"/>
+      <path d="M60 56 Q65 59 70 56" fill="none" stroke="#C9A020" strokeWidth="1.5" strokeLinecap="round"/>
+      <line x1="60" y1="56" x2="70" y2="56" stroke="#C9A020" strokeWidth="0.8"/>
+
+      {/* Key */}
+      <circle cx="40" cy="77" r="5.5" fill="none" stroke="#8B6E48" strokeWidth="2.2"/>
+      <circle cx="40" cy="77" r="2.5" fill="none" stroke="#8B6E48" strokeWidth="1.2"/>
+      <rect x="44" y="75" width="18" height="3.5" rx="1" fill="#8B6E48"/>
+      <rect x="57" y="78.5" width="3" height="5" rx="0.5" fill="#8B6E48"/>
+      <rect x="61" y="78.5" width="3" height="4" rx="0.5" fill="#8B6E48"/>
+
+      {/* IIPP badge */}
+      <rect x="33" y="86" width="34" height="14" rx="7" fill="#FFFFFF" stroke="#1E3A6E" strokeWidth="1.5"/>
+      <text x="50" y="96.5" textAnchor="middle" fontFamily="Arial Black, Arial, sans-serif" fontSize="9.5" fontWeight="900" fill="#1E3A6E" letterSpacing="1.5">IIPP</text>
     </svg>
   );
 }
@@ -478,6 +514,7 @@ function PricingPage({ onBack, onSupuestoGratis }) {
                   href={STRIPE_LINKS[i] || "#"}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={(e) => { e.stopPropagation(); window.open(STRIPE_LINKS[i], '_blank'); }}
                   style={{
                     display: "block", width: "100%", padding: "15px 0",
                     background: highlighted ? "var(--gold)" : "var(--blue)",
@@ -486,6 +523,7 @@ function PricingPage({ onBack, onSupuestoGratis }) {
                     border: "none", borderRadius: "4px", cursor: "pointer",
                     textAlign: "center", textDecoration: "none",
                     transition: "background .2s, transform .15s",
+                    position: "relative", zIndex: 10,
                   }}
                   onMouseOver={e => { e.currentTarget.style.transform = "scale(1.02)"; }}
                   onMouseOut={e => { e.currentTarget.style.transform = "none"; }}
