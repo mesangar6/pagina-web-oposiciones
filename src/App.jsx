@@ -244,85 +244,17 @@ function StatBlock({ val, suf, label }) {
 }
 
 function Logo({ size = 56 }) {
-  const h = size * 1.15;
   return (
-    <svg width={size} height={h} viewBox="0 0 100 115" fill="none">
-      {/* Outer decorative rings */}
-      <circle cx="50" cy="56" r="48" fill="none" stroke="#1E3A6E" strokeWidth="2.5"/>
-      <circle cx="50" cy="56" r="45" fill="none" stroke="#1E3A6E" strokeWidth="1.5"/>
-      <circle cx="50" cy="56" r="42" fill="none" stroke="#C9A020" strokeWidth="0.8"/>
-
-      {/* Main shield body */}
-      <path d="M50 14 L85 30 L85 64 Q85 90 50 108 Q15 90 15 64 L15 30 Z" fill="#1E3A6E" stroke="#C9A020" strokeWidth="2"/>
-
-      {/* Gold inner border */}
-      <path d="M50 20 L79 34 L79 63 Q79 86 50 102 Q21 86 21 63 L21 34 Z" fill="none" stroke="#C9A020" strokeWidth="1.2"/>
-
-      {/* White inner shield */}
-      <path d="M50 25 L75 37 L75 62 Q75 82 50 97 Q25 82 25 62 L25 37 Z" fill="#FFFFFF"/>
-
-      {/* Blue side panels */}
-      <path d="M15 30 L27 36 L27 62 Q27 80 50 97 Q15 90 15 64 Z" fill="#1A3468" opacity="0.9"/>
-      <path d="M85 30 L73 36 L73 62 Q73 80 50 97 Q85 90 85 64 Z" fill="#1A3468" opacity="0.9"/>
-
-      {/* Tower */}
-      <rect x="40" y="4" width="20" height="14" rx="1.5" fill="#8B6E48" stroke="#6B5030" strokeWidth="0.6"/>
-      <rect x="37" y="1" width="6" height="8" rx="1" fill="#8B6E48" stroke="#6B5030" strokeWidth="0.5"/>
-      <rect x="45.5" y="1" width="6" height="8" rx="1" fill="#8B6E48" stroke="#6B5030" strokeWidth="0.5"/>
-      <rect x="54" y="1" width="6" height="8" rx="1" fill="#8B6E48" stroke="#6B5030" strokeWidth="0.5"/>
-      <rect x="46" y="11" width="8" height="7" rx="1" fill="#4A2E10"/>
-
-      {/* Stars on sides */}
-      <text x="20" y="53" textAnchor="middle" fontFamily="Arial" fontSize="5" fill="#C9A020">★</text>
-      <text x="20" y="60" textAnchor="middle" fontFamily="Arial" fontSize="5" fill="#C9A020">★</text>
-      <text x="20" y="67" textAnchor="middle" fontFamily="Arial" fontSize="5" fill="#C9A020">★</text>
-      <text x="80" y="53" textAnchor="middle" fontFamily="Arial" fontSize="5" fill="#C9A020">★</text>
-      <text x="80" y="60" textAnchor="middle" fontFamily="Arial" fontSize="5" fill="#C9A020">★</text>
-      <text x="80" y="67" textAnchor="middle" fontFamily="Arial" fontSize="5" fill="#C9A020">★</text>
-
-      {/* Laurel wreath - left */}
-      <ellipse cx="30" cy="50" rx="4" ry="7" transform="rotate(-30 30 50)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="27" cy="58" rx="4" ry="7" transform="rotate(-15 27 58)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="27" cy="67" rx="4" ry="7" transform="rotate(0 27 67)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="29" cy="76" rx="4" ry="7" transform="rotate(15 29 76)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="34" cy="83" rx="4" ry="6" transform="rotate(30 34 83)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-
-      {/* Laurel wreath - right */}
-      <ellipse cx="70" cy="50" rx="4" ry="7" transform="rotate(30 70 50)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="73" cy="58" rx="4" ry="7" transform="rotate(15 73 58)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="73" cy="67" rx="4" ry="7" transform="rotate(0 73 67)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="71" cy="76" rx="4" ry="7" transform="rotate(-15 71 76)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-      <ellipse cx="66" cy="83" rx="4" ry="6" transform="rotate(-30 66 83)" fill="#2A7A30" stroke="#1A5A20" strokeWidth="0.4"/>
-
-      {/* Laurel bottom tie */}
-      <path d="M38 90 Q50 96 62 90" fill="none" stroke="#2A7A30" strokeWidth="1.5" strokeLinecap="round"/>
-
-      {/* Balance - center pole */}
-      <rect x="49" y="38" width="2" height="30" fill="#C9A020"/>
-      {/* Balance - top diamond */}
-      <polygon points="50,35 53,40 50,45 47,40" fill="#C9A020"/>
-      {/* Balance - beam */}
-      <rect x="34" y="44" width="32" height="2.5" rx="1" fill="#C9A020"/>
-      {/* Left chain + plate */}
-      <line x1="37" y1="47" x2="35" y2="56" stroke="#C9A020" strokeWidth="0.8"/>
-      <path d="M30 56 Q35 59 40 56" fill="none" stroke="#C9A020" strokeWidth="1.5" strokeLinecap="round"/>
-      <line x1="30" y1="56" x2="40" y2="56" stroke="#C9A020" strokeWidth="0.8"/>
-      {/* Right chain + plate */}
-      <line x1="63" y1="47" x2="65" y2="56" stroke="#C9A020" strokeWidth="0.8"/>
-      <path d="M60 56 Q65 59 70 56" fill="none" stroke="#C9A020" strokeWidth="1.5" strokeLinecap="round"/>
-      <line x1="60" y1="56" x2="70" y2="56" stroke="#C9A020" strokeWidth="0.8"/>
-
-      {/* Key */}
-      <circle cx="40" cy="77" r="5.5" fill="none" stroke="#8B6E48" strokeWidth="2.2"/>
-      <circle cx="40" cy="77" r="2.5" fill="none" stroke="#8B6E48" strokeWidth="1.2"/>
-      <rect x="44" y="75" width="18" height="3.5" rx="1" fill="#8B6E48"/>
-      <rect x="57" y="78.5" width="3" height="5" rx="0.5" fill="#8B6E48"/>
-      <rect x="61" y="78.5" width="3" height="4" rx="0.5" fill="#8B6E48"/>
-
-      {/* IIPP badge */}
-      <rect x="33" y="86" width="34" height="14" rx="7" fill="#FFFFFF" stroke="#1E3A6E" strokeWidth="1.5"/>
-      <text x="50" y="96.5" textAnchor="middle" fontFamily="Arial Black, Arial, sans-serif" fontSize="9.5" fontWeight="900" fill="#1E3A6E" letterSpacing="1.5">IIPP</text>
-    </svg>
+    <img
+      src="/logo-iipp.jpeg"
+      alt="Preparador IIPP"
+      style={{
+        width: size,
+        height: "auto",
+        objectFit: "contain",
+        borderRadius: "4px",
+      }}
+    />
   );
 }
 
