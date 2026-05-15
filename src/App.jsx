@@ -513,8 +513,8 @@ function PricingPage({ onBack, onSupuestoGratis }) {
 
           {[
             ["¿Puedo cancelar cuando quiera?", "Sí, no hay permanencia. Puedes cancelar tu suscripción en cualquier momento desde tu panel de usuario. Seguirás teniendo acceso hasta el final del periodo pagado."],
-            ["¿Qué incluye exactamente cada plan?", "Todos los planes incluyen acceso completo al aula virtual con supuestos prácticos semanales, simulacros de examen mensuales, resoluciones detalladas, PDFs, vídeos explicativos y Normativa actualizada."],
-            ["¿Cómo recibo los supuestos?", "Cada semana se publican nuevos supuestos en el aula virtual. Recibirás una notificación por email cada vez que haya material nuevo disponible."],
+            ["¿Qué incluye exactamente cada plan?", "Todos los planes incluyen acceso completo al aula virtual con un tema de estudio semanal, con resumen, test, audio y video explicativos, mapa conceptual, flashcards para el estudio y supuestos prácticos con resoluciones detalladas."],
+            ["¿Cómo recibo los supuestos?", "Cada semana se publica nuevo contenido en el aula virtual. Recibirás una notificación por email cada vez que haya material nuevo disponible."],
             ["¿Hay matrícula o costes adicionales?", "No, el precio que ves es el precio final. Sin matrícula, sin costes ocultos, sin sorpresas."],
             ["¿Puedo cambiar de plan?", "Sí, puedes cambiar de plan en cualquier momento. El cambio se aplica en tu siguiente ciclo de facturación."],
           ].map(([q, a], i) => (
