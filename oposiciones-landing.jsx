@@ -61,11 +61,11 @@ function useSiteData() {
           badge: i === 1 ? "Más elegido" : i === 3 ? "Máximo ahorro" : null,
           features: [
             "Acceso completo al aula virtual",
-            "3 supuestos prácticos semanales",
+            "Material para estudiar y practicar cada semana",
             "Resoluciones detalladas",
             "Simulacro de examen mensual",
             "PDFs y vídeos explicativos",
-            "Normativa adaptada a tu CCAA",
+            "Normativa actualizada",
             ...(i === 3 ? ["Acceso prioritario a novedades"] : []),
           ],
         })));
@@ -90,9 +90,9 @@ const SITE = {
   heroSub: "La plataforma de referencia para preparar tu oposición a Instituciones Penitenciarias con casos reales, resoluciones detalladas y un método avalado por funcionarios en activo.",
   cta: "Empieza gratis",
   features: [
-    { num: "01", title: "3 supuestos prácticos cada semana", desc: "Casos reales de IIPP: régimen penitenciario, derecho penal y normativa interna." },
+    { num: "01", title: "Material para estudiar y practicar cada semana", desc: "Casos reales de IIPP: régimen penitenciario, derecho penal y normativa interna." },
     { num: "02", title: "Simulacro de examen mensual", desc: "Condiciones idénticas al examen oficial. Cronometrado y corregido." },
-    { num: "03", title: "Normativa adaptada a tu CCAA", desc: "Legislación autonómica incluida y actualizada cada trimestre." },
+    { num: "03", title: "Normativa actualizada", desc: "La normativa esta en constantes cambios y nosotros la actualizamos." },
     { num: "04", title: "Tipo test y desarrollo", desc: "Ambas modalidades, con resoluciones razonadas artículo a artículo." },
     { num: "05", title: "Resoluciones detalladas", desc: "Actualizadas con jurisprudencia y criterios del cuerpo." },
     { num: "06", title: "PDF y vídeos explicativos", desc: "Normativa aplicada a casos prácticos reales de IIPP." },
@@ -133,11 +133,11 @@ const SITE = {
       badge: null,
       features: [
         "Acceso completo al aula virtual",
-        "3 supuestos prácticos semanales",
+        "Material para estudiar y practicar cada semana",
         "Resoluciones detalladas",
         "Simulacro de examen mensual",
         "PDFs y vídeos explicativos",
-        "Normativa adaptada a tu CCAA",
+        "Normativa actualizada",
       ],
     },
     {
@@ -151,11 +151,11 @@ const SITE = {
       badge: "Más elegido",
       features: [
         "Todo lo del plan mensual",
-        "3 supuestos prácticos semanales",
+        "Material para estudiar y practicar cada semana",
         "Resoluciones detalladas",
         "Simulacro de examen mensual",
         "PDFs y vídeos explicativos",
-        "Normativa adaptada a tu CCAA",
+        "Normativa actualizada",
       ],
     },
     {
@@ -169,11 +169,11 @@ const SITE = {
       badge: "Mayor ahorro",
       features: [
         "Todo lo del plan mensual",
-        "3 supuestos prácticos semanales",
+        "Material para estudiar y practicar cada semana",
         "Resoluciones detalladas",
         "Simulacro de examen mensual",
         "PDFs y vídeos explicativos",
-        "Normativa adaptada a tu CCAA",
+        "Normativa actualizada",
       ],
     },
     {
@@ -187,11 +187,11 @@ const SITE = {
       badge: "Máximo ahorro",
       features: [
         "Todo lo del plan mensual",
-        "3 supuestos prácticos semanales",
+        "Material para estudiar y practicar cada semana",
         "Resoluciones detalladas",
         "Simulacro de examen mensual",
         "PDFs y vídeos explicativos",
-        "Normativa adaptada a tu CCAA",
+        "Normativa actualizada",
         "Acceso prioritario a novedades",
       ],
     },
@@ -443,7 +443,7 @@ function PricingPage({ onBack }) {
 
           {[
             ["¿Puedo cancelar cuando quiera?", "Sí, no hay permanencia. Puedes cancelar tu suscripción en cualquier momento desde tu panel de usuario. Seguirás teniendo acceso hasta el final del periodo pagado."],
-            ["¿Qué incluye exactamente cada plan?", "Todos los planes incluyen acceso completo al aula virtual con supuestos prácticos semanales, simulacros de examen mensuales, resoluciones detalladas, PDFs, vídeos explicativos y normativa adaptada a tu CCAA."],
+            ["¿Qué incluye exactamente cada plan?", "Todos los planes incluyen acceso completo al aula virtual con supuestos prácticos semanales, simulacros de examen mensuales, resoluciones detalladas, PDFs, vídeos explicativos y Normativa actualizada."],
             ["¿Cómo recibo los supuestos?", "Cada semana se publican nuevos supuestos en el aula virtual. Recibirás una notificación por email cada vez que haya material nuevo disponible."],
             ["¿Hay matrícula o costes adicionales?", "No, el precio que ves es el precio final. Sin matrícula, sin costes ocultos, sin sorpresas."],
             ["¿Puedo cambiar de plan?", "Sí, puedes cambiar de plan en cualquier momento. El cambio se aplica en tu siguiente ciclo de facturación."],
@@ -739,7 +739,7 @@ function SupuestoGratis({ onBack, onTarifas }) {
           <div>
             <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--gold-l)", fontWeight: 600, marginBottom: "12px" }}>¿Te ha gustado?</div>
             <h2 style={{ fontFamily: "var(--serif)", fontSize: "clamp(22px,2.5vw,32px)", fontWeight: 900, color: "#fff", lineHeight: 1.1, marginBottom: "10px" }}>
-              Recibe 3 supuestos nuevos cada semana
+              Material para estudiar y practicar cada semana
             </h2>
             <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.6)", fontWeight: 300 }}>
               Suscríbete desde 49€/mes. Sin permanencia. Cancela cuando quieras.
