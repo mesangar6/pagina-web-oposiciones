@@ -290,6 +290,13 @@ function Logo({ size = 56 }) {
   );
 }
 
+const STRIPE_LINKS = [
+  "https://buy.stripe.com/eVq14o6xD5vS0T1fXb00000",
+  "https://buy.stripe.com/fZu7sM3lr9M8cBJ12h00001",
+  "https://buy.stripe.com/eVq00k09f1fCatB5ix00002",
+  "https://buy.stripe.com/3cIfZie05e2ogRZ9yN00003",
+];
+
 function CheckIcon() {
   return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2A7A30" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
 }
@@ -466,18 +473,23 @@ function PricingPage({ onBack, onSupuestoGratis }) {
                   ))}
                 </div>
 
-                {/* CTA */}
-                <button style={{
-                  width: "100%", padding: "15px 0",
-                  background: highlighted ? "var(--gold)" : "var(--blue)",
-                  color: highlighted ? "var(--blue-d)" : "#fff",
-                  fontFamily: "var(--body)", fontSize: "15px", fontWeight: 700,
-                  border: "none", borderRadius: "4px", cursor: "pointer",
-                  transition: "background .2s, transform .15s",
-                }}
+                {/* CTA → Stripe */}
+                <a
+                  href={STRIPE_LINKS[i] || "#"}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "block", width: "100%", padding: "15px 0",
+                    background: highlighted ? "var(--gold)" : "var(--blue)",
+                    color: highlighted ? "var(--blue-d)" : "#fff",
+                    fontFamily: "var(--body)", fontSize: "15px", fontWeight: 700,
+                    border: "none", borderRadius: "4px", cursor: "pointer",
+                    textAlign: "center", textDecoration: "none",
+                    transition: "background .2s, transform .15s",
+                  }}
                   onMouseOver={e => { e.currentTarget.style.transform = "scale(1.02)"; }}
                   onMouseOut={e => { e.currentTarget.style.transform = "none"; }}
-                >Me apunto →</button>
+                >Me apunto →</a>
               </div>
             </Reveal>
           );
