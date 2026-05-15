@@ -99,7 +99,7 @@ const SITE = {
   ],
   steps: [
     { num: "I",   title: "Suscríbete",       desc: "Accede al aula virtual con tu usuario y contraseña en menos de 2 minutos." },
-    { num: "II",  title: "Recibe supuestos",  desc: "Cada semana nuevos casos prácticos llegan directamente a tu bandeja." },
+    { num: "II",  title: "Recibe material",  desc: "Cada semana nuevos casos prácticos llegan directamente a tu bandeja." },
     { num: "III", title: "Corrige y analiza", desc: "Revisa las resoluciones detalladas y aprende de cada error." },
     { num: "IV",  title: "Simulacro mensual", desc: "Pon a prueba tu nivel real y mejora semana a semana." },
   ],
