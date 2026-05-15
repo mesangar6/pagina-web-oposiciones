@@ -298,11 +298,7 @@ function NavBar({ links, scrolled = true }) {
 
       <nav className={`nav ${scrolled ? "down" : ""}`}>
         <a href="#" onClick={(e) => { e.preventDefault(); links.onHome(); }} className="nav-brand">
-          <Logo size={52} />
-          <div>
-            <div className="nav-name">{SITE.name}</div>
-            <div className="nav-sub">{SITE.tagline}</div>
-          </div>
+          <Logo size={90} />
         </a>
         <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
           {links.items.map((item, i) => (
@@ -656,7 +652,7 @@ function HomePage({ onNavigate }) {
       <footer className="footer">
         <div className="footer-top">
           <div>
-            <Logo size={52}/><div className="f-name">{SITE.name}</div><div className="f-sub">{SITE.tagline}</div>
+            <Logo size={120}/>
             <p className="f-desc">Formación online especializada en oposiciones a Instituciones Penitenciarias. Prepárate con casos reales y un método avalado por profesionales.</p>
             <div className="f-socials">{["FB","IG","YT","TK"].map(s=><a key={s} href="#" className="f-soc">{s}</a>)}</div>
           </div>
@@ -859,7 +855,7 @@ export default function App() {
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         html{scroll-behavior:smooth;}
 
-        .nav{position:fixed;top:0;left:0;right:0;z-index:10000;height:88px;padding:0 64px;display:flex;align-items:center;justify-content:space-between;transition:background .35s,box-shadow .35s;background:rgba(255,255,255,0);}
+        .nav{position:fixed;top:0;left:0;right:0;z-index:10000;height:100px;padding:0 64px;display:flex;align-items:center;justify-content:space-between;transition:background .35s,box-shadow .35s;background:rgba(255,255,255,0);}
         .nav.down{background:rgba(255,255,255,.98);backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--ink25);}
         .nav-brand{display:flex;align-items:center;gap:16px;text-decoration:none;}
         .nav-name{font-family:var(--serif);font-size:22px;color:var(--blue-d);line-height:1.05;letter-spacing:-.3px;}
