@@ -294,18 +294,20 @@ function CheckIcon() {
   return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2A7A30" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
 }
 
-/* ═══════════════════════════════════════════
-   PRICING PAGE
-═══════════════════════════════════════════ */
-function PricingPage({ onBack, onSupuestoGratis }) {
-  const { planes, loaded } = useSiteData();
-  const planesData = planes.length > 0 ? planes : SITE.plans;
+/* ── NavBar reutilizable ── */
+function NavBar({ links, scrolled = true }) {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <div style={{ background: "#fff", minHeight: "100vh" }}>
-      {/* NAV completa */}
-      <nav className="nav down" style={{ background: "rgba(255,255,255,0.98)", backdropFilter: "blur(16px)", boxShadow: "0 1px 0 var(--ink25)" }}>
-        <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} className="nav-brand">
+    <>
+      {/* Overlay que bloquea el contenido cuando el menú está abierto en móvil */}
+      {menuOpen && (
+        <div
+          onClick={() => setMenuOpen(false)}
+          style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 9998 }}
+        />
+      )}
+      <nav className={`nav ${scrolled ? "down" : ""}`}>
+        <a href="#" onClick={(e) => { e.preventDefault(); links.onHome(); }} className="nav-brand">
           <Logo size={52} />
           <div>
             <div className="nav-name">{SITE.name}</div>
@@ -313,10 +315,21 @@ function PricingPage({ onBack, onSupuestoGratis }) {
           </div>
         </a>
         <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <li><a href="#" onClick={(e) => { e.preventDefault(); onBack(); setMenuOpen(false); }}>Inicio</a></li>
-          <li><a href="#" onClick={(e) => { e.preventDefault(); onSupuestoGratis?.(); setMenuOpen(false); }}>Supuesto gratis</a></li>
-          <li><a href="#" onClick={(e) => { e.preventDefault(); setMenuOpen(false); }}>Tarifas</a></li>
-          <li><a href="#" className="nav-cta" onClick={(e) => { e.preventDefault(); setMenuOpen(false); }}>Acceso plataforma</a></li>
+          {links.items.map((item, i) => (
+            <li key={i}>
+              <a
+                href={item.href || "#"}
+                className={item.cta ? "nav-cta" : ""}
+                onClick={(e) => {
+                  if (item.onClick) { e.preventDefault(); item.onClick(); }
+                  setMenuOpen(false);
+                }}
+                download={item.download || undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
         </ul>
         <button className="mob-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menú">
           <span style={menuOpen ? { transform: "rotate(45deg) translate(4px,5px)" } : {}} />
@@ -324,6 +337,27 @@ function PricingPage({ onBack, onSupuestoGratis }) {
           <span style={menuOpen ? { transform: "rotate(-45deg) translate(4px,-5px)" } : {}} />
         </button>
       </nav>
+    </>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   PRICING PAGE
+═══════════════════════════════════════════ */
+function PricingPage({ onBack, onSupuestoGratis }) {
+  const { planes, loaded } = useSiteData();
+  const planesData = planes.length > 0 ? planes : SITE.plans;
+  return (
+    <div style={{ background: "#fff", minHeight: "100vh" }}>
+      <NavBar links={{
+        onHome: onBack,
+        items: [
+          { label: "Inicio", onClick: onBack },
+          { label: "Supuesto gratis", onClick: onSupuestoGratis },
+          { label: "Tarifas" },
+          { label: "Acceso plataforma", onClick: onBack, cta: true },
+        ]
+      }} />
 
       {/* HERO */}
       <div className="pricing-hero" style={{ paddingTop: "108px" }}>
@@ -485,7 +519,6 @@ function PricingPage({ onBack, onSupuestoGratis }) {
    HOME PAGE
 ═══════════════════════════════════════════ */
 function HomePage({ onNavigate }) {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const { contenido, planes, stats, loaded } = useSiteData();
@@ -511,40 +544,19 @@ function HomePage({ onNavigate }) {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  const handleNav = (href) => {
-    setMenuOpen(false);
-    if (href === "tarifas" || href === "supuesto-gratis") { onNavigate(href); return; }
-  };
-
   return (
     <div style={{ background: "#FFFFFF" }}>
-      {/* NAV */}
-      <nav className={`nav ${scrolled ? "down" : ""}`}>
-        <a href="#inicio" className="nav-brand">
-          <Logo size={scrolled ? 52 : 62} />
-          <div>
-            <div className="nav-name">{siteName}</div>
-            <div className="nav-sub">{siteTagline}</div>
-          </div>
-        </a>
-        <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
-          {SITE.nav.map(l => (
-            <li key={l.label}>
-              {l.href === "tarifas" || l.href === "supuesto-gratis" ? (
-                <a href="#" onClick={(e) => { e.preventDefault(); handleNav(l.href); }}>{l.label}</a>
-              ) : (
-                <a href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</a>
-              )}
-            </li>
-          ))}
-          <li><a href="#" className="nav-cta" onClick={(e) => { e.preventDefault(); handleNav("tarifas"); }}>Acceso plataforma</a></li>
-        </ul>
-        <button className="mob-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menú">
-          <span style={menuOpen ? { transform: "rotate(45deg) translate(4px,5px)" } : {}} />
-          <span style={menuOpen ? { opacity: 0 } : {}} />
-          <span style={menuOpen ? { transform: "rotate(-45deg) translate(4px,-5px)" } : {}} />
-        </button>
-      </nav>
+      <NavBar scrolled={scrolled} links={{
+        onHome: () => {},
+        items: [
+          { label: "Supuesto gratis", onClick: () => onNavigate("supuesto-gratis") },
+          { label: "Tarifas", onClick: () => onNavigate("tarifas") },
+          { label: "Cómo funciona", href: "#como-funciona" },
+          { label: "Temario", href: "#temario" },
+          { label: "Testimonios", href: "#testimonios" },
+          { label: "Acceso plataforma", onClick: () => onNavigate("tarifas"), cta: true },
+        ]
+      }} />
 
       {/* HERO */}
       <section className="hero" id="inicio">
@@ -679,33 +691,19 @@ const PDF_DOWNLOAD = `https://drive.google.com/uc?export=download&id=${PDF_ID}`;
 
 function SupuestoGratis({ onBack, onTarifas }) {
   const [pdfLoaded, setPdfLoaded] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div style={{ background: "#fff", minHeight: "100vh", fontFamily: "var(--body)" }}>
-
-      {/* NAV — igual que HomePage */}
-      <nav className="nav down" style={{ background: "rgba(255,255,255,0.98)", backdropFilter: "blur(16px)", boxShadow: "0 1px 0 var(--ink25)" }}>
-        <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} className="nav-brand">
-          <Logo size={52} />
-          <div>
-            <div className="nav-name">Preparador IIPP</div>
-            <div className="nav-sub">Oposiciones IIPP · Formación Profesional</div>
-          </div>
-        </a>
-        <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <li><a href="#" onClick={(e) => { e.preventDefault(); onBack(); setMenuOpen(false); }}>Inicio</a></li>
-          <li><a href="#" onClick={(e) => { e.preventDefault(); setMenuOpen(false); }}>Supuesto gratis</a></li>
-          <li><a href="#" onClick={(e) => { e.preventDefault(); onTarifas(); setMenuOpen(false); }}>Tarifas</a></li>
-          <li><a href={PDF_DOWNLOAD} download onClick={() => setMenuOpen(false)}>↓ Descargar PDF</a></li>
-          <li><a href="#" className="nav-cta" onClick={(e) => { e.preventDefault(); onTarifas(); setMenuOpen(false); }}>Ver tarifas →</a></li>
-        </ul>
-        <button className="mob-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menú">
-          <span style={menuOpen ? { transform: "rotate(45deg) translate(4px,5px)" } : {}} />
-          <span style={menuOpen ? { opacity: 0 } : {}} />
-          <span style={menuOpen ? { transform: "rotate(-45deg) translate(4px,-5px)" } : {}} />
-        </button>
-      </nav>
+      <NavBar links={{
+        onHome: onBack,
+        items: [
+          { label: "Inicio", onClick: onBack },
+          { label: "Supuesto gratis" },
+          { label: "Tarifas", onClick: onTarifas },
+          { label: "↓ Descargar PDF", href: PDF_DOWNLOAD, download: true },
+          { label: "Ver tarifas →", onClick: onTarifas, cta: true },
+        ]
+      }} />
 
       {/* HERO STRIP */}
       <div style={{ background: "linear-gradient(135deg, var(--blue-d), var(--blue))", padding: "128px 64px 48px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "40px", flexWrap: "wrap" }}>
