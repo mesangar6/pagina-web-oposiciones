@@ -297,28 +297,36 @@ function CheckIcon() {
 /* ═══════════════════════════════════════════
    PRICING PAGE
 ═══════════════════════════════════════════ */
-function PricingPage({ onBack }) {
+function PricingPage({ onBack, onSupuestoGratis }) {
   const { planes, loaded } = useSiteData();
   const planesData = planes.length > 0 ? planes : SITE.plans;
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div style={{ background: "#fff", minHeight: "100vh" }}>
-      {/* HEADER */}
-      <div className="pricing-header">
-        <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} style={{ display: "flex", alignItems: "center", gap: "14px", textDecoration: "none" }}>
-          <Logo size={50} />
+      {/* NAV completa */}
+      <nav className="nav down" style={{ background: "rgba(255,255,255,0.98)", backdropFilter: "blur(16px)", boxShadow: "0 1px 0 var(--ink25)" }}>
+        <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} className="nav-brand">
+          <Logo size={52} />
           <div>
-            <div style={{ fontFamily: "var(--serif)", fontSize: "18px", color: "var(--blue-d)" }}>{SITE.name}</div>
-            <div style={{ fontSize: "10px", color: "var(--gold)", letterSpacing: "2px", textTransform: "uppercase", fontWeight: 600 }}>{SITE.tagline}</div>
+            <div className="nav-name">{SITE.name}</div>
+            <div className="nav-sub">{SITE.tagline}</div>
           </div>
         </a>
-        <button onClick={onBack} style={{ background: "none", border: "1px solid var(--ink25)", borderRadius: "3px", padding: "10px 24px", cursor: "pointer", fontFamily: "var(--body)", fontSize: "14px", fontWeight: 500, color: "var(--blue)", transition: "background .2s" }}
-          onMouseOver={e => { e.currentTarget.style.background = "var(--blue)"; e.currentTarget.style.color = "#fff"; }}
-          onMouseOut={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--blue)"; }}
-        >← Volver al inicio</button>
-      </div>
+        <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
+          <li><a href="#" onClick={(e) => { e.preventDefault(); onBack(); setMenuOpen(false); }}>Inicio</a></li>
+          <li><a href="#" onClick={(e) => { e.preventDefault(); onSupuestoGratis?.(); setMenuOpen(false); }}>Supuesto gratis</a></li>
+          <li><a href="#" onClick={(e) => { e.preventDefault(); setMenuOpen(false); }}>Tarifas</a></li>
+          <li><a href="#" className="nav-cta" onClick={(e) => { e.preventDefault(); setMenuOpen(false); }}>Acceso plataforma</a></li>
+        </ul>
+        <button className="mob-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menú">
+          <span style={menuOpen ? { transform: "rotate(45deg) translate(4px,5px)" } : {}} />
+          <span style={menuOpen ? { opacity: 0 } : {}} />
+          <span style={menuOpen ? { transform: "rotate(-45deg) translate(4px,-5px)" } : {}} />
+        </button>
+      </nav>
 
       {/* HERO */}
-      <div className="pricing-hero">
+      <div className="pricing-hero" style={{ paddingTop: "108px" }}>
         <Reveal>
           <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--gold)", fontWeight: 600, marginBottom: "16px" }}>Sin matrícula · Sin permanencia</div>
           <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(34px,4vw,56px)", fontWeight: 900, color: "var(--blue-d)", lineHeight: 1.05, letterSpacing: "-2px", marginBottom: "20px" }}>
@@ -671,37 +679,36 @@ const PDF_DOWNLOAD = `https://drive.google.com/uc?export=download&id=${PDF_ID}`;
 
 function SupuestoGratis({ onBack, onTarifas }) {
   const [pdfLoaded, setPdfLoaded] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div style={{ background: "#fff", minHeight: "100vh", fontFamily: "var(--body)" }}>
 
-      {/* HEADER */}
-      <div style={{ borderBottom: "1px solid var(--ink25)", padding: "16px 64px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "#fff", zIndex: 100 }}>
-        <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} style={{ display: "flex", alignItems: "center", gap: "14px", textDecoration: "none" }}>
-          <Logo size={44} />
+      {/* NAV — igual que HomePage */}
+      <nav className="nav down" style={{ background: "rgba(255,255,255,0.98)", backdropFilter: "blur(16px)", boxShadow: "0 1px 0 var(--ink25)" }}>
+        <a href="#" onClick={(e) => { e.preventDefault(); onBack(); }} className="nav-brand">
+          <Logo size={52} />
           <div>
-            <div style={{ fontFamily: "var(--serif)", fontSize: "17px", color: "var(--blue-d)", fontWeight: 700 }}>Preparador IIPP</div>
-            <div style={{ fontSize: "10px", color: "var(--gold)", letterSpacing: "2px", textTransform: "uppercase", fontWeight: 600 }}>Oposiciones IIPP</div>
+            <div className="nav-name">Preparador IIPP</div>
+            <div className="nav-sub">Oposiciones IIPP · Formación Profesional</div>
           </div>
         </a>
-        <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-          <a href={PDF_DOWNLOAD} download style={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "9px 20px", background: "var(--offwhite)", color: "var(--blue)", fontWeight: 600, fontSize: "13px", borderRadius: "3px", textDecoration: "none", border: "1px solid var(--ink25)", transition: "background .2s" }}
-            onMouseOver={e => e.currentTarget.style.background = "var(--offwhite2)"}
-            onMouseOut={e => e.currentTarget.style.background = "var(--offwhite)"}
-          >
-            ↓ Descargar PDF
-          </a>
-          <button onClick={onTarifas} style={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "9px 20px", background: "var(--blue)", color: "#fff", fontWeight: 600, fontSize: "13px", borderRadius: "3px", border: "none", cursor: "pointer", transition: "background .2s" }}
-            onMouseOver={e => e.currentTarget.style.background = "var(--blue-d)"}
-            onMouseOut={e => e.currentTarget.style.background = "var(--blue)"}
-          >
-            Ver tarifas →
-          </button>
-        </div>
-      </div>
+        <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
+          <li><a href="#" onClick={(e) => { e.preventDefault(); onBack(); setMenuOpen(false); }}>Inicio</a></li>
+          <li><a href="#" onClick={(e) => { e.preventDefault(); setMenuOpen(false); }}>Supuesto gratis</a></li>
+          <li><a href="#" onClick={(e) => { e.preventDefault(); onTarifas(); setMenuOpen(false); }}>Tarifas</a></li>
+          <li><a href={PDF_DOWNLOAD} download onClick={() => setMenuOpen(false)}>↓ Descargar PDF</a></li>
+          <li><a href="#" className="nav-cta" onClick={(e) => { e.preventDefault(); onTarifas(); setMenuOpen(false); }}>Ver tarifas →</a></li>
+        </ul>
+        <button className="mob-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menú">
+          <span style={menuOpen ? { transform: "rotate(45deg) translate(4px,5px)" } : {}} />
+          <span style={menuOpen ? { opacity: 0 } : {}} />
+          <span style={menuOpen ? { transform: "rotate(-45deg) translate(4px,-5px)" } : {}} />
+        </button>
+      </nav>
 
       {/* HERO STRIP */}
-      <div style={{ background: "linear-gradient(135deg, var(--blue-d), var(--blue))", padding: "48px 64px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "40px", flexWrap: "wrap" }}>
+      <div style={{ background: "linear-gradient(135deg, var(--blue-d), var(--blue))", padding: "128px 64px 48px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "40px", flexWrap: "wrap" }}>
         <div>
           <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--gold-l)", fontWeight: 600, marginBottom: "12px" }}>Supuesto Práctico Gratuito</div>
           <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(28px,3vw,42px)", fontWeight: 900, color: "#fff", lineHeight: 1.1, letterSpacing: "-1px", marginBottom: "12px" }}>
@@ -982,7 +989,7 @@ export default function App() {
       `}</style>
 
       {page === "home"            && <HomePage onNavigate={navigate} />}
-      {page === "tarifas"         && <PricingPage onBack={() => navigate("home")} plans={SITE.plans} />}
+      {page === "tarifas"         && <PricingPage onBack={() => navigate("home")} onSupuestoGratis={() => navigate("supuesto-gratis")} plans={SITE.plans} />}
       {page === "supuesto-gratis" && <SupuestoGratis onBack={() => navigate("home")} onTarifas={() => navigate("tarifas")} />}
       <WhatsAppButton />
     </div>
