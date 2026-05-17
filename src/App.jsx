@@ -306,6 +306,8 @@ function NavBar({ links, scrolled = true }) {
               <a
                 href={item.href || "#"}
                 className={item.cta ? "nav-cta" : ""}
+                target={item.href && item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href && item.href.startsWith("http") ? "noreferrer" : undefined}
                 onClick={(e) => {
                   if (item.onClick) { e.preventDefault(); item.onClick(); }
                   setMenuOpen(false);
@@ -341,7 +343,7 @@ function PricingPage({ onBack, onSupuestoGratis }) {
           { label: "Inicio", onClick: onBack },
           { label: "Supuesto gratis", onClick: onSupuestoGratis },
           { label: "Tarifas" },
-          { label: "Acceso plataforma", onClick: onBack, cta: true },
+          { label: "Acceso plataforma", href: "https://preparadoriipp.moodlecloud.com", cta: true },
         ]
       }} />
 
@@ -547,7 +549,7 @@ function HomePage({ onNavigate }) {
           { label: "Cómo funciona", href: "#como-funciona" },
           { label: "Temario", href: "#temario" },
           { label: "Testimonios", href: "#testimonios" },
-          { label: "Acceso plataforma", onClick: () => onNavigate("tarifas"), cta: true },
+          { label: "Acceso plataforma", href: "https://preparadoriipp.moodlecloud.com", cta: true },
         ]
       }} />
 
@@ -656,7 +658,7 @@ function HomePage({ onNavigate }) {
             <p className="f-desc">Formación online especializada en oposiciones a Instituciones Penitenciarias. Prepárate con casos reales y un método avalado por profesionales.</p>
             <div className="f-socials">{["FB","IG","YT","TK"].map(s=><a key={s} href="#" className="f-soc">{s}</a>)}</div>
           </div>
-          <div><div className="f-col-title">Plataforma</div>{["Tarifas","Supuesto GRATIS","Cancelar suscripción","Acceso plataforma"].map(l=>(<a key={l} href="#" className="f-link" onClick={l==="Tarifas"?(e)=>{e.preventDefault();onNavigate("tarifas");}:undefined}>{l}</a>))}</div>
+          <div><div className="f-col-title">Plataforma</div>{[["Tarifas","tarifas"],["Supuesto GRATIS","supuesto-gratis"],["Acceso plataforma","https://preparadoriipp.moodlecloud.com"]].map(([l,href])=>(<a key={l} href={href.startsWith("http")?href:"#"} className="f-link" target={href.startsWith("http")?"_blank":undefined} rel={href.startsWith("http")?"noreferrer":undefined} onClick={!href.startsWith("http")?(e)=>{e.preventDefault();onNavigate(href);}:undefined}>{l}</a>))}</div>
           <div><div className="f-col-title">Legal</div>{["Política de Privacidad","Aviso Legal","Política de Cookies","Condiciones generales"].map(l=>(<a key={l} href="#" className="f-link">{l}</a>))}</div>
         </div>
         <div className="footer-bottom">
