@@ -343,7 +343,7 @@ function PricingPage({ onBack, onSupuestoGratis }) {
           { label: "Inicio", onClick: onBack },
           { label: "Supuesto gratis", onClick: onSupuestoGratis },
           { label: "Tarifas" },
-          { label: "Acceso plataforma", href: "https://preparadoriipp.moodlecloud.com", cta: true },
+          { label: "Acceso plataforma", onClick: () => {}, cta: true },
         ]
       }} />
 
@@ -549,7 +549,7 @@ function HomePage({ onNavigate }) {
           { label: "Cómo funciona", href: "#como-funciona" },
           { label: "Temario", href: "#temario" },
           { label: "Testimonios", href: "#testimonios" },
-          { label: "Acceso plataforma", href: "https://preparadoriipp.moodlecloud.com", cta: true },
+          { label: "Acceso plataforma", onClick: () => onNavigate("login"), cta: true },
         ]
       }} />
 
@@ -658,7 +658,7 @@ function HomePage({ onNavigate }) {
             <p className="f-desc">Formación online especializada en oposiciones a Instituciones Penitenciarias. Prepárate con casos reales y un método avalado por profesionales.</p>
             <div className="f-socials">{["FB","IG","YT","TK"].map(s=><a key={s} href="#" className="f-soc">{s}</a>)}</div>
           </div>
-          <div><div className="f-col-title">Plataforma</div>{[["Tarifas","tarifas"],["Supuesto GRATIS","supuesto-gratis"],["Acceso plataforma","https://preparadoriipp.moodlecloud.com"]].map(([l,href])=>(<a key={l} href={href.startsWith("http")?href:"#"} className="f-link" target={href.startsWith("http")?"_blank":undefined} rel={href.startsWith("http")?"noreferrer":undefined} onClick={!href.startsWith("http")?(e)=>{e.preventDefault();onNavigate(href);}:undefined}>{l}</a>))}</div>
+          <div><div className="f-col-title">Plataforma</div>{[["Tarifas","tarifas"],["Supuesto GRATIS","supuesto-gratis"],["Acceso plataforma","login"]].map(([l,href])=>(<a key={l} href="#" className="f-link" onClick={(e)=>{e.preventDefault();onNavigate(href);}}>{l}</a>))}</div>
           <div><div className="f-col-title">Legal</div>{["Política de Privacidad","Aviso Legal","Política de Cookies","Condiciones generales"].map(l=>(<a key={l} href="#" className="f-link">{l}</a>))}</div>
         </div>
         <div className="footer-bottom">
@@ -833,6 +833,149 @@ function WhatsAppButton() {
 }
 
 /* ═══════════════════════════════════════════
+   LOGIN PAGE
+═══════════════════════════════════════════ */
+function LoginPage({ onBack, onTarifas }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setError("");
+    if (!email || !password) { setError("Por favor rellena todos los campos."); return; }
+    setLoading(true);
+    // Redirige a Moodle con los datos — Moodle procesa el login
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://preparadoriipp.moodlecloud.com/login/index.php";
+    form.target = "_blank";
+    [["username", email], ["password", password], ["anchor", ""]].forEach(([name, value]) => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = name;
+      input.value = value;
+      form.appendChild(input);
+    });
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+    setTimeout(() => setLoading(false), 2000);
+  };
+
+  return (
+    <div style={{ background: "#fff", minHeight: "100vh", fontFamily: "var(--body)" }}>
+      <NavBar links={{
+        onHome: onBack,
+        items: [
+          { label: "Inicio", onClick: onBack },
+          { label: "Supuesto gratis", onClick: () => {} },
+          { label: "Tarifas", onClick: onTarifas },
+          { label: "Acceso plataforma", onClick: () => {}, cta: true },
+        ]
+      }} />
+
+      {/* HERO */}
+      <div style={{ background: "linear-gradient(135deg, var(--blue-d), var(--blue))", padding: "140px 24px 60px", textAlign: "center" }}>
+        <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--gold-l)", fontWeight: 600, marginBottom: "12px" }}>Área privada</div>
+        <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(28px,3vw,42px)", fontWeight: 900, color: "#fff", lineHeight: 1.1, marginBottom: "12px" }}>
+          Accede a tu aula virtual
+        </h1>
+        <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.65)", maxWidth: "400px", margin: "0 auto" }}>
+          Entra con las credenciales que recibiste por email al suscribirte.
+        </p>
+      </div>
+
+      {/* LOGIN FORM */}
+      <div style={{ maxWidth: "480px", margin: "-40px auto 80px", padding: "0 24px" }}>
+        <div style={{ background: "#fff", borderRadius: "16px", padding: "48px 40px", boxShadow: "0 8px 48px rgba(13,35,71,0.12)", border: "1px solid var(--ink25)" }}>
+
+          <div style={{ textAlign: "center", marginBottom: "32px" }}>
+            <Logo size={80} />
+            <div style={{ fontFamily: "var(--serif)", fontSize: "20px", fontWeight: 700, color: "var(--blue-d)", marginTop: "16px" }}>Preparador IIPP</div>
+            <div style={{ fontSize: "13px", color: "var(--ink60)", marginTop: "4px" }}>Inicia sesión en tu área personal</div>
+          </div>
+
+          <form onSubmit={handleLogin}>
+            <div style={{ marginBottom: "20px" }}>
+              <label style={{ display: "block", fontSize: "13px", fontWeight: 600, color: "var(--ink)", marginBottom: "8px" }}>
+                Email / Usuario
+              </label>
+              <input
+                type="text"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="tu@email.com"
+                style={{ width: "100%", padding: "12px 16px", border: "1.5px solid var(--ink25)", borderRadius: "8px", fontSize: "15px", fontFamily: "var(--body)", outline: "none", boxSizing: "border-box", transition: "border-color .2s" }}
+                onFocus={e => e.target.style.borderColor = "var(--blue)"}
+                onBlur={e => e.target.style.borderColor = "var(--ink25)"}
+              />
+            </div>
+
+            <div style={{ marginBottom: "24px" }}>
+              <label style={{ display: "block", fontSize: "13px", fontWeight: 600, color: "var(--ink)", marginBottom: "8px" }}>
+                Contraseña
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="••••••••"
+                style={{ width: "100%", padding: "12px 16px", border: "1.5px solid var(--ink25)", borderRadius: "8px", fontSize: "15px", fontFamily: "var(--body)", outline: "none", boxSizing: "border-box", transition: "border-color .2s" }}
+                onFocus={e => e.target.style.borderColor = "var(--blue)"}
+                onBlur={e => e.target.style.borderColor = "var(--ink25)"}
+              />
+            </div>
+
+            {error && (
+              <div style={{ background: "#FEF2F2", border: "1px solid #FECACA", borderRadius: "8px", padding: "12px 16px", marginBottom: "20px", fontSize: "13px", color: "#DC2626" }}>
+                {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              style={{ width: "100%", padding: "14px", background: loading ? "var(--ink25)" : "var(--blue)", color: "#fff", fontFamily: "var(--body)", fontSize: "15px", fontWeight: 700, border: "none", borderRadius: "8px", cursor: loading ? "not-allowed" : "pointer", transition: "background .2s" }}
+              onMouseOver={e => { if (!loading) e.currentTarget.style.background = "var(--blue-d)"; }}
+              onMouseOut={e => { if (!loading) e.currentTarget.style.background = "var(--blue)"; }}
+            >
+              {loading ? "Entrando..." : "Entrar al aula →"}
+            </button>
+          </form>
+
+          <div style={{ marginTop: "24px", textAlign: "center" }}>
+            <a href="https://preparadoriipp.moodlecloud.com/login/forgot_password.php" target="_blank" rel="noreferrer" style={{ fontSize: "13px", color: "var(--blue)", textDecoration: "none", fontWeight: 500 }}>
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
+
+          <div style={{ marginTop: "32px", paddingTop: "24px", borderTop: "1px solid var(--ink25)", textAlign: "center" }}>
+            <p style={{ fontSize: "13px", color: "var(--ink60)", marginBottom: "12px" }}>¿Aún no eres alumno?</p>
+            <button onClick={onTarifas} style={{ padding: "10px 28px", background: "var(--gold)", color: "var(--blue-d)", fontFamily: "var(--body)", fontSize: "13px", fontWeight: 700, border: "none", borderRadius: "6px", cursor: "pointer" }}>
+              Ver tarifas →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* FOOTER mini */}
+      <div style={{ background: "var(--blue-d)", padding: "24px 64px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
+        <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)" }}>© 2026 Preparador IIPP — Todos los derechos reservados</p>
+        <a href="https://wa.me/34641198743" target="_blank" rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: "8px", color: "rgba(255,255,255,0.5)", textDecoration: "none", fontSize: "13px", fontWeight: 500 }}
+          onMouseOver={e => e.currentTarget.style.color = "#25D366"}
+          onMouseOut={e => e.currentTarget.style.color = "rgba(255,255,255,0.5)"}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          641 198 743
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
    APP ROUTER
 ═══════════════════════════════════════════ */
 export default function App() {
@@ -984,6 +1127,7 @@ export default function App() {
       {page === "home"            && <HomePage onNavigate={navigate} />}
       {page === "tarifas"         && <PricingPage onBack={() => navigate("home")} onSupuestoGratis={() => navigate("supuesto-gratis")} plans={SITE.plans} />}
       {page === "supuesto-gratis" && <SupuestoGratis onBack={() => navigate("home")} onTarifas={() => navigate("tarifas")} />}
+      {page === "login"           && <LoginPage onBack={() => navigate("home")} onTarifas={() => navigate("tarifas")} />}
       <WhatsAppButton />
     </div>
   );
