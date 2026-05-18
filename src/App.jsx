@@ -115,7 +115,7 @@ const SITE = {
     { val: "12",  suf: "",  label: "Simulacros al año" },
   ],
   nav: [
-    { label: "Contenido gratis", href: "supuesto-gratis" },
+    { label: "Contenido de prueba", href: "supuesto-gratis" },
     { label: "Tarifas",         href: "tarifas" },
     { label: "Cómo funciona",   href: "#como-funciona" },
     { label: "Temario",         href: "#temario" },
@@ -339,7 +339,7 @@ function PricingPage({ onBack, onSupuestoGratis }) {
         onHome: onBack,
         items: [
           { label: "Inicio", onClick: onBack },
-          { label: "Contenido gratis", onClick: onSupuestoGratis },
+          { label: "Contenido de prueba", onClick: onSupuestoGratis },
           { label: "Tarifas" },
           { label: "Acceso plataforma", onClick: onBack, cta: true },
         ]
@@ -542,7 +542,7 @@ function HomePage({ onNavigate }) {
       <NavBar scrolled={scrolled} links={{
         onHome: () => {},
         items: [
-          { label: "Contenido gratis", onClick: () => onNavigate("supuesto-gratis") },
+          { label: "Contenido de prueba", onClick: () => onNavigate("supuesto-gratis") },
           { label: "Tarifas", onClick: () => onNavigate("tarifas") },
           { label: "Cómo funciona", href: "#como-funciona" },
           { label: "Temario", href: "#temario" },
@@ -692,7 +692,7 @@ function SupuestoGratis({ onBack, onTarifas }) {
         onHome: onBack,
         items: [
           { label: "Inicio", onClick: onBack },
-          { label: "Contenido gratis" },
+          { label: "Contenido de prueba" },
           { label: "Tarifas", onClick: onTarifas },
           { label: "↓ Descargar PDF", href: PDF_DOWNLOAD, download: true },
           { label: "Ver tarifas →", onClick: onTarifas, cta: true },
@@ -702,12 +702,12 @@ function SupuestoGratis({ onBack, onTarifas }) {
       {/* HERO STRIP */}
       <div style={{ background: "linear-gradient(135deg, var(--blue-d), var(--blue))", padding: "128px 64px 48px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "40px", flexWrap: "wrap" }}>
         <div>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--gold-l)", fontWeight: 600, marginBottom: "12px" }}>Contenido Gratuito - Tema 1</div>
+          <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--gold-l)", fontWeight: 600, marginBottom: "12px" }}>Tema 1 de prueba</div>
           <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(28px,3vw,42px)", fontWeight: 900, color: "#fff", lineHeight: 1.1, letterSpacing: "-1px", marginBottom: "12px" }}>
             Tema 1 en PDF, audio<br/><em style={{ fontStyle: "italic", color: "var(--gold-l)" }}>y vídeo gratuito</em>
           </h1>
           <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.65)", fontWeight: 300, maxWidth: "480px", lineHeight: 1.6 }}>
-            Regístrate hoy mismo para disfrutar de más contenido del Tema 1 y de los demás temas.
+            Regístrate hoy mismo para disfrutar de más contenido del Tema 1 y de los demás temas. Sin registro, sin tarjeta.
           </p>
         </div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
@@ -903,8 +903,8 @@ export default function App() {
         .nav-links{display:flex;gap:28px;align-items:center;list-style:none;}
         .nav-links a{font-size:14px;font-weight:500;color:var(--ink60);text-decoration:none;transition:color .2s;}
         .nav-links a:hover{color:var(--blue);}
-        .nav-cta{padding:11px 26px;background:var(--blue);color:#fff;font-size:13px;font-weight:700;border:none;border-radius:3px;cursor:pointer;text-decoration:none;transition:background .2s;}
-        .nav-cta:hover{background:var(--blue-d);}
+        .nav-cta{padding:11px 26px;background:var(--blue);color:#fff!important;font-size:13px;font-weight:700;border:none;border-radius:3px;cursor:pointer;text-decoration:none;transition:background .2s;}
+        .nav-cta:hover{background:var(--blue-d);color:#fff!important;}
 
         .hero{position:relative;min-height:100vh;background:#fff;display:flex;align-items:center;overflow:hidden;}
         .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%231E3A6E' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;}
