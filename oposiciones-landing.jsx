@@ -711,7 +711,7 @@ function SupuestoGratis({ onBack, onTarifas }) {
           </p>
         </div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-          {[["📄","PDF incluido"],["🎥","Vídeo incluido"],["🗺️","Mapa conceptual"]].map(([icon, label]) => (
+          {[["📄","PDF incluido"],["🎧","Audio incluido"],["🎥","Vídeo incluido"],["🗺️","Mapa conceptual"]].map(([icon, label]) => (
             <div key={label} style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "8px", padding: "14px 20px", textAlign: "center" }}>
               <div style={{ fontSize: "24px", marginBottom: "6px" }}>{icon}</div>
               <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>{label}</div>
@@ -723,7 +723,31 @@ function SupuestoGratis({ onBack, onTarifas }) {
       {/* CONTENIDO */}
       <div style={{ maxWidth: "960px", margin: "0 auto", padding: "40px 24px" }}>
 
-        {/* VIDEO YOUTUBE */}
+        {/* AUDIO */}
+        <div style={{ background: "#fff", borderRadius: "12px", border: "1px solid var(--ink25)", overflow: "hidden", boxShadow: "0 4px 32px rgba(13,35,71,0.08)", marginBottom: "32px" }}>
+          <div style={{ padding: "14px 24px", background: "var(--offwhite)", borderBottom: "1px solid var(--ink25)", display: "flex", alignItems: "center", gap: "10px" }}>
+            <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FF5F57" }}/>
+            <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FEBC2E" }}/>
+            <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#28C840" }}/>
+            <span style={{ marginLeft: "8px", fontSize: "13px", color: "var(--ink60)", fontWeight: 500 }}>🎧 Audio — Tema 1 IIPP</span>
+            <a href="https://drive.google.com/uc?export=download&id=1_beyacdayd_-FzZZIh74oF5VScn8r9VM" target="_blank" rel="noreferrer" style={{ marginLeft: "auto", fontSize: "12px", color: "var(--blue)", fontWeight: 600, textDecoration: "none" }}>↓ Descargar</a>
+          </div>
+          <div style={{ padding: "32px 40px", display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap" }}>
+            <div style={{ fontSize: "48px" }}>🎧</div>
+            <div style={{ flex: 1, minWidth: "200px" }}>
+              <div style={{ fontFamily: "var(--serif)", fontSize: "16px", fontWeight: 700, color: "var(--blue-d)", marginBottom: "12px" }}>
+                Resumen audio — Tema 1 IIPP
+              </div>
+              <audio
+                controls
+                style={{ width: "100%" }}
+                src="https://drive.google.com/uc?export=download&id=1_beyacdayd_-FzZZIh74oF5VScn8r9VM"
+              >
+                Tu navegador no soporta el reproductor de audio.
+              </audio>
+            </div>
+          </div>
+        </div>
         <div style={{ background: "#fff", borderRadius: "12px", border: "1px solid var(--ink25)", overflow: "hidden", boxShadow: "0 4px 32px rgba(13,35,71,0.08)", marginBottom: "32px" }}>
           <div style={{ padding: "14px 24px", background: "var(--offwhite)", borderBottom: "1px solid var(--ink25)", display: "flex", alignItems: "center", gap: "10px" }}>
             <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FF5F57" }}/>
