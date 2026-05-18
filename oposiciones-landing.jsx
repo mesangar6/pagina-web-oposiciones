@@ -115,7 +115,7 @@ const SITE = {
     { val: "12",  suf: "",  label: "Simulacros al año" },
   ],
   nav: [
-    { label: "Supuesto gratis", href: "supuesto-gratis" },
+    { label: "Contenido gratis", href: "supuesto-gratis" },
     { label: "Tarifas",         href: "tarifas" },
     { label: "Cómo funciona",   href: "#como-funciona" },
     { label: "Temario",         href: "#temario" },
@@ -306,8 +306,6 @@ function NavBar({ links, scrolled = true }) {
               <a
                 href={item.href || "#"}
                 className={item.cta ? "nav-cta" : ""}
-                target={item.href && item.href.startsWith("http") ? "_blank" : undefined}
-                rel={item.href && item.href.startsWith("http") ? "noreferrer" : undefined}
                 onClick={(e) => {
                   if (item.onClick) { e.preventDefault(); item.onClick(); }
                   setMenuOpen(false);
@@ -341,9 +339,9 @@ function PricingPage({ onBack, onSupuestoGratis }) {
         onHome: onBack,
         items: [
           { label: "Inicio", onClick: onBack },
-          { label: "Supuesto gratis", onClick: onSupuestoGratis },
+          { label: "Contenido gratis", onClick: onSupuestoGratis },
           { label: "Tarifas" },
-          { label: "Acceso plataforma", onClick: () => {}, cta: true },
+          { label: "Acceso plataforma", onClick: onBack, cta: true },
         ]
       }} />
 
@@ -544,12 +542,12 @@ function HomePage({ onNavigate }) {
       <NavBar scrolled={scrolled} links={{
         onHome: () => {},
         items: [
-          { label: "Supuesto gratis", onClick: () => onNavigate("supuesto-gratis") },
+          { label: "Contenido gratis", onClick: () => onNavigate("supuesto-gratis") },
           { label: "Tarifas", onClick: () => onNavigate("tarifas") },
           { label: "Cómo funciona", href: "#como-funciona" },
           { label: "Temario", href: "#temario" },
           { label: "Testimonios", href: "#testimonios" },
-          { label: "Acceso plataforma", onClick: () => onNavigate("login"), cta: true },
+          { label: "Acceso plataforma", onClick: () => onNavigate("tarifas"), cta: true },
         ]
       }} />
 
@@ -658,7 +656,7 @@ function HomePage({ onNavigate }) {
             <p className="f-desc">Formación online especializada en oposiciones a Instituciones Penitenciarias. Prepárate con casos reales y un método avalado por profesionales.</p>
             <div className="f-socials">{["FB","IG","YT","TK"].map(s=><a key={s} href="#" className="f-soc">{s}</a>)}</div>
           </div>
-          <div><div className="f-col-title">Plataforma</div>{[["Tarifas","tarifas"],["Supuesto GRATIS","supuesto-gratis"],["Acceso plataforma","login"]].map(([l,href])=>(<a key={l} href="#" className="f-link" onClick={(e)=>{e.preventDefault();onNavigate(href);}}>{l}</a>))}</div>
+          <div><div className="f-col-title">Plataforma</div>{["Tarifas","Supuesto GRATIS","Cancelar suscripción","Acceso plataforma"].map(l=>(<a key={l} href="#" className="f-link" onClick={l==="Tarifas"?(e)=>{e.preventDefault();onNavigate("tarifas");}:undefined}>{l}</a>))}</div>
           <div><div className="f-col-title">Legal</div>{["Política de Privacidad","Aviso Legal","Política de Cookies","Condiciones generales"].map(l=>(<a key={l} href="#" className="f-link">{l}</a>))}</div>
         </div>
         <div className="footer-bottom">
@@ -693,7 +691,7 @@ function SupuestoGratis({ onBack, onTarifas }) {
         onHome: onBack,
         items: [
           { label: "Inicio", onClick: onBack },
-          { label: "Supuesto gratis" },
+          { label: "Contenido gratis" },
           { label: "Tarifas", onClick: onTarifas },
           { label: "↓ Descargar PDF", href: PDF_DOWNLOAD, download: true },
           { label: "Ver tarifas →", onClick: onTarifas, cta: true },
@@ -703,16 +701,16 @@ function SupuestoGratis({ onBack, onTarifas }) {
       {/* HERO STRIP */}
       <div style={{ background: "linear-gradient(135deg, var(--blue-d), var(--blue))", padding: "128px 64px 48px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "40px", flexWrap: "wrap" }}>
         <div>
-          <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--gold-l)", fontWeight: 600, marginBottom: "12px" }}>Supuesto Práctico Gratuito</div>
+          <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--gold-l)", fontWeight: 600, marginBottom: "12px" }}>Contenido Gratuito - Tema 1</div>
           <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(28px,3vw,42px)", fontWeight: 900, color: "#fff", lineHeight: 1.1, letterSpacing: "-1px", marginBottom: "12px" }}>
-            Prueba nuestro método<br/><em style={{ fontStyle: "italic", color: "var(--gold-l)" }}>sin compromiso</em>
+            Tema 1 en PDF, audio<br/><em style={{ fontStyle: "italic", color: "var(--gold-l)" }}>y vídeo gratuito</em>
           </h1>
           <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.65)", fontWeight: 300, maxWidth: "480px", lineHeight: 1.6 }}>
-            Accede a un supuesto práctico real de Instituciones Penitenciarias, con resolución detallada incluida. Sin registro, sin tarjeta.
+            Regístrate hoy mismo para disfrutar de más contenido del Tema 1 y de los demás temas. Sin registro, sin tarjeta.
           </p>
         </div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-          {[["📄","PDF incluido"],["✅","Resolución detallada"],["⚖️","Caso real IIPP"]].map(([icon, label]) => (
+          {[["📄","PDF incluido"],["🎧","Audio incluido"],["🎥","Vídeo incluido"]].map(([icon, label]) => (
             <div key={label} style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "8px", padding: "14px 20px", textAlign: "center" }}>
               <div style={{ fontSize: "24px", marginBottom: "6px" }}>{icon}</div>
               <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>{label}</div>
@@ -721,8 +719,27 @@ function SupuestoGratis({ onBack, onTarifas }) {
         </div>
       </div>
 
-      {/* PDF VIEWER */}
+      {/* CONTENIDO */}
       <div style={{ maxWidth: "960px", margin: "0 auto", padding: "40px 24px" }}>
+
+        {/* AUDIO/VIDEO NotebookLM */}
+        <div style={{ background: "#fff", borderRadius: "12px", border: "1px solid var(--ink25)", overflow: "hidden", boxShadow: "0 4px 32px rgba(13,35,71,0.08)", marginBottom: "32px" }}>
+          <div style={{ padding: "14px 24px", background: "var(--offwhite)", borderBottom: "1px solid var(--ink25)", display: "flex", alignItems: "center", gap: "10px" }}>
+            <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FF5F57" }}/>
+            <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FEBC2E" }}/>
+            <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#28C840" }}/>
+            <span style={{ marginLeft: "8px", fontSize: "13px", color: "var(--ink60)", fontWeight: 500 }}>🎧 Audio y Vídeo — Tema 1 IIPP</span>
+            <a href="https://notebooklm.google.com/notebook/81d13493-48a7-4d3c-978d-695e843fb7e2/artifact/bba392dc-1811-4c8b-b9ab-4d6b4b61a88d" target="_blank" rel="noreferrer" style={{ marginLeft: "auto", fontSize: "12px", color: "var(--blue)", fontWeight: 600, textDecoration: "none" }}>↗ Abrir en nueva pestaña</a>
+          </div>
+          <iframe
+            src="https://notebooklm.google.com/notebook/81d13493-48a7-4d3c-978d-695e843fb7e2/artifact/bba392dc-1811-4c8b-b9ab-4d6b4b61a88d"
+            style={{ width: "100%", height: "500px", border: "none" }}
+            allow="autoplay"
+            title="Audio y Vídeo Tema 1 IIPP"
+          />
+        </div>
+
+        {/* PDF VIEWER */}
         <div style={{ background: "#fff", borderRadius: "12px", border: "1px solid var(--ink25)", overflow: "hidden", boxShadow: "0 4px 32px rgba(13,35,71,0.08)" }}>
 
           {/* Toolbar */}
@@ -731,7 +748,7 @@ function SupuestoGratis({ onBack, onTarifas }) {
               <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FF5F57" }}/>
               <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FEBC2E" }}/>
               <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#28C840" }}/>
-              <span style={{ marginLeft: "8px", fontSize: "13px", color: "var(--ink60)", fontWeight: 500 }}>Supuesto Práctico — Preparador IIPP</span>
+              <span style={{ marginLeft: "8px", fontSize: "13px", color: "var(--ink60)", fontWeight: 500 }}>📄 PDF — Tema 1 IIPP</span>
             </div>
             <a href={PDF_DOWNLOAD} download style={{ fontSize: "12px", color: "var(--blue)", fontWeight: 600, textDecoration: "none" }}>↓ Descargar</a>
           </div>
@@ -739,7 +756,7 @@ function SupuestoGratis({ onBack, onTarifas }) {
           {/* iFrame visor */}
           {!pdfLoaded && (
             <div style={{ height: "200px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--ink60)", fontSize: "14px" }}>
-              Cargando supuesto...
+              Cargando PDF...
             </div>
           )}
           <iframe
@@ -747,7 +764,7 @@ function SupuestoGratis({ onBack, onTarifas }) {
             style={{ width: "100%", height: "900px", border: "none", display: pdfLoaded ? "block" : "none" }}
             allow="autoplay"
             onLoad={() => setPdfLoaded(true)}
-            title="Supuesto Práctico IIPP"
+            title="Contenido Gratuito IIPP"
           />
         </div>
 
@@ -829,149 +846,6 @@ function WhatsAppButton() {
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
       </svg>
     </a>
-  );
-}
-
-/* ═══════════════════════════════════════════
-   LOGIN PAGE
-═══════════════════════════════════════════ */
-function LoginPage({ onBack, onTarifas }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    setError("");
-    if (!email || !password) { setError("Por favor rellena todos los campos."); return; }
-    setLoading(true);
-    // Redirige a Moodle con los datos — Moodle procesa el login
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = "https://preparadoriipp.moodlecloud.com/login/index.php";
-    form.target = "_blank";
-    [["username", email], ["password", password], ["anchor", ""]].forEach(([name, value]) => {
-      const input = document.createElement("input");
-      input.type = "hidden";
-      input.name = name;
-      input.value = value;
-      form.appendChild(input);
-    });
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
-    setTimeout(() => setLoading(false), 2000);
-  };
-
-  return (
-    <div style={{ background: "#fff", minHeight: "100vh", fontFamily: "var(--body)" }}>
-      <NavBar links={{
-        onHome: onBack,
-        items: [
-          { label: "Inicio", onClick: onBack },
-          { label: "Supuesto gratis", onClick: () => {} },
-          { label: "Tarifas", onClick: onTarifas },
-          { label: "Acceso plataforma", onClick: () => {}, cta: true },
-        ]
-      }} />
-
-      {/* HERO */}
-      <div style={{ background: "linear-gradient(135deg, var(--blue-d), var(--blue))", padding: "140px 24px 60px", textAlign: "center" }}>
-        <div style={{ fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--gold-l)", fontWeight: 600, marginBottom: "12px" }}>Área privada</div>
-        <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(28px,3vw,42px)", fontWeight: 900, color: "#fff", lineHeight: 1.1, marginBottom: "12px" }}>
-          Accede a tu aula virtual
-        </h1>
-        <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.65)", maxWidth: "400px", margin: "0 auto" }}>
-          Entra con las credenciales que recibiste por email al suscribirte.
-        </p>
-      </div>
-
-      {/* LOGIN FORM */}
-      <div style={{ maxWidth: "480px", margin: "-40px auto 80px", padding: "0 24px" }}>
-        <div style={{ background: "#fff", borderRadius: "16px", padding: "48px 40px", boxShadow: "0 8px 48px rgba(13,35,71,0.12)", border: "1px solid var(--ink25)" }}>
-
-          <div style={{ textAlign: "center", marginBottom: "32px" }}>
-            <Logo size={80} />
-            <div style={{ fontFamily: "var(--serif)", fontSize: "20px", fontWeight: 700, color: "var(--blue-d)", marginTop: "16px" }}>Preparador IIPP</div>
-            <div style={{ fontSize: "13px", color: "var(--ink60)", marginTop: "4px" }}>Inicia sesión en tu área personal</div>
-          </div>
-
-          <form onSubmit={handleLogin}>
-            <div style={{ marginBottom: "20px" }}>
-              <label style={{ display: "block", fontSize: "13px", fontWeight: 600, color: "var(--ink)", marginBottom: "8px" }}>
-                Email / Usuario
-              </label>
-              <input
-                type="text"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="tu@email.com"
-                style={{ width: "100%", padding: "12px 16px", border: "1.5px solid var(--ink25)", borderRadius: "8px", fontSize: "15px", fontFamily: "var(--body)", outline: "none", boxSizing: "border-box", transition: "border-color .2s" }}
-                onFocus={e => e.target.style.borderColor = "var(--blue)"}
-                onBlur={e => e.target.style.borderColor = "var(--ink25)"}
-              />
-            </div>
-
-            <div style={{ marginBottom: "24px" }}>
-              <label style={{ display: "block", fontSize: "13px", fontWeight: 600, color: "var(--ink)", marginBottom: "8px" }}>
-                Contraseña
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                placeholder="••••••••"
-                style={{ width: "100%", padding: "12px 16px", border: "1.5px solid var(--ink25)", borderRadius: "8px", fontSize: "15px", fontFamily: "var(--body)", outline: "none", boxSizing: "border-box", transition: "border-color .2s" }}
-                onFocus={e => e.target.style.borderColor = "var(--blue)"}
-                onBlur={e => e.target.style.borderColor = "var(--ink25)"}
-              />
-            </div>
-
-            {error && (
-              <div style={{ background: "#FEF2F2", border: "1px solid #FECACA", borderRadius: "8px", padding: "12px 16px", marginBottom: "20px", fontSize: "13px", color: "#DC2626" }}>
-                {error}
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={loading}
-              style={{ width: "100%", padding: "14px", background: loading ? "var(--ink25)" : "var(--blue)", color: "#fff", fontFamily: "var(--body)", fontSize: "15px", fontWeight: 700, border: "none", borderRadius: "8px", cursor: loading ? "not-allowed" : "pointer", transition: "background .2s" }}
-              onMouseOver={e => { if (!loading) e.currentTarget.style.background = "var(--blue-d)"; }}
-              onMouseOut={e => { if (!loading) e.currentTarget.style.background = "var(--blue)"; }}
-            >
-              {loading ? "Entrando..." : "Entrar al aula →"}
-            </button>
-          </form>
-
-          <div style={{ marginTop: "24px", textAlign: "center" }}>
-            <a href="https://preparadoriipp.moodlecloud.com/login/forgot_password.php" target="_blank" rel="noreferrer" style={{ fontSize: "13px", color: "var(--blue)", textDecoration: "none", fontWeight: 500 }}>
-              ¿Olvidaste tu contraseña?
-            </a>
-          </div>
-
-          <div style={{ marginTop: "32px", paddingTop: "24px", borderTop: "1px solid var(--ink25)", textAlign: "center" }}>
-            <p style={{ fontSize: "13px", color: "var(--ink60)", marginBottom: "12px" }}>¿Aún no eres alumno?</p>
-            <button onClick={onTarifas} style={{ padding: "10px 28px", background: "var(--gold)", color: "var(--blue-d)", fontFamily: "var(--body)", fontSize: "13px", fontWeight: 700, border: "none", borderRadius: "6px", cursor: "pointer" }}>
-              Ver tarifas →
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* FOOTER mini */}
-      <div style={{ background: "var(--blue-d)", padding: "24px 64px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
-        <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)" }}>© 2026 Preparador IIPP — Todos los derechos reservados</p>
-        <a href="https://wa.me/34641198743" target="_blank" rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: "8px", color: "rgba(255,255,255,0.5)", textDecoration: "none", fontSize: "13px", fontWeight: 500 }}
-          onMouseOver={e => e.currentTarget.style.color = "#25D366"}
-          onMouseOut={e => e.currentTarget.style.color = "rgba(255,255,255,0.5)"}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          641 198 743
-        </a>
-      </div>
-    </div>
   );
 }
 
@@ -1127,7 +1001,6 @@ export default function App() {
       {page === "home"            && <HomePage onNavigate={navigate} />}
       {page === "tarifas"         && <PricingPage onBack={() => navigate("home")} onSupuestoGratis={() => navigate("supuesto-gratis")} plans={SITE.plans} />}
       {page === "supuesto-gratis" && <SupuestoGratis onBack={() => navigate("home")} onTarifas={() => navigate("tarifas")} />}
-      {page === "login"           && <LoginPage onBack={() => navigate("home")} onTarifas={() => navigate("tarifas")} />}
       <WhatsAppButton />
     </div>
   );
