@@ -678,9 +678,10 @@ function HomePage({ onNavigate }) {
 /* ═══════════════════════════════════════════
    SUPUESTO GRATIS PAGE
 ═══════════════════════════════════════════ */
-const PDF_ID = "1ZSXSewL-ph2NCgeySL2EDQVKPOOzTT5c";
+const PDF_ID = "1gqU1bQxjdrTelubtnR5XQ9-iJzO3_nsd";
 const PDF_EMBED = `https://drive.google.com/file/d/${PDF_ID}/preview`;
 const PDF_DOWNLOAD = `https://drive.google.com/uc?export=download&id=${PDF_ID}`;
+const NOTEBOOKLM_URL = "https://notebooklm.google.com/notebook/81d13493-48a7-4d3c-978d-695e843fb7e2/artifact/bba392dc-1811-4c8b-b9ab-4d6b4b61a88d";
 
 function SupuestoGratis({ onBack, onTarifas }) {
   const [pdfLoaded, setPdfLoaded] = useState(false);
@@ -729,14 +730,26 @@ function SupuestoGratis({ onBack, onTarifas }) {
             <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FEBC2E" }}/>
             <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#28C840" }}/>
             <span style={{ marginLeft: "8px", fontSize: "13px", color: "var(--ink60)", fontWeight: 500 }}>🎧 Audio y Vídeo — Tema 1 IIPP</span>
-            <a href="https://notebooklm.google.com/notebook/81d13493-48a7-4d3c-978d-695e843fb7e2/artifact/bba392dc-1811-4c8b-b9ab-4d6b4b61a88d" target="_blank" rel="noreferrer" style={{ marginLeft: "auto", fontSize: "12px", color: "var(--blue)", fontWeight: 600, textDecoration: "none" }}>↗ Abrir en nueva pestaña</a>
           </div>
-          <iframe
-            src="https://notebooklm.google.com/notebook/81d13493-48a7-4d3c-978d-695e843fb7e2/artifact/bba392dc-1811-4c8b-b9ab-4d6b4b61a88d"
-            style={{ width: "100%", height: "500px", border: "none" }}
-            allow="autoplay"
-            title="Audio y Vídeo Tema 1 IIPP"
-          />
+          <div style={{ padding: "48px 40px", textAlign: "center" }}>
+            <div style={{ fontSize: "48px", marginBottom: "16px" }}>🎧</div>
+            <h3 style={{ fontFamily: "var(--serif)", fontSize: "22px", fontWeight: 700, color: "var(--blue-d)", marginBottom: "12px" }}>
+              Escucha y ve el Tema 1 en audio y vídeo
+            </h3>
+            <p style={{ fontSize: "15px", color: "var(--ink60)", marginBottom: "28px", maxWidth: "460px", margin: "0 auto 28px" }}>
+              Hemos preparado un resumen del Tema 1 en formato audio y vídeo para que puedas estudiar donde quieras.
+            </p>
+            <a
+              href={NOTEBOOKLM_URL}
+              target="_blank"
+              rel="noreferrer"
+              style={{ display: "inline-flex", alignItems: "center", gap: "10px", padding: "16px 36px", background: "var(--blue)", color: "#fff", fontFamily: "var(--body)", fontSize: "15px", fontWeight: 700, borderRadius: "8px", textDecoration: "none", transition: "background .2s" }}
+              onMouseOver={e => e.currentTarget.style.background = "var(--blue-d)"}
+              onMouseOut={e => e.currentTarget.style.background = "var(--blue)"}
+            >
+              🎧 Escuchar y ver el audio/vídeo →
+            </a>
+          </div>
         </div>
 
         {/* PDF VIEWER */}
