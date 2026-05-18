@@ -707,11 +707,11 @@ function SupuestoGratis({ onBack, onTarifas }) {
             Tema 1 en PDF, audio<br/><em style={{ fontStyle: "italic", color: "var(--gold-l)" }}>y vídeo gratuito</em>
           </h1>
           <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.65)", fontWeight: 300, maxWidth: "480px", lineHeight: 1.6 }}>
-            Regístrate hoy mismo para disfrutar de más contenido del Tema 1 y de los demás temas. Sin registro, sin tarjeta.
+            Regístrate hoy mismo para disfrutar de más contenido del Tema 1 y de los demás temas.
           </p>
         </div>
         <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-          {[["📄","PDF incluido"],["🎧","Audio incluido"],["🎥","Vídeo incluido"]].map(([icon, label]) => (
+          {[["📄","PDF incluido"],["🎥","Vídeo incluido"],["🗺️","Mapa conceptual"]].map(([icon, label]) => (
             <div key={label} style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "8px", padding: "14px 20px", textAlign: "center" }}>
               <div style={{ fontSize: "24px", marginBottom: "6px" }}>{icon}</div>
               <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>{label}</div>
@@ -723,32 +723,40 @@ function SupuestoGratis({ onBack, onTarifas }) {
       {/* CONTENIDO */}
       <div style={{ maxWidth: "960px", margin: "0 auto", padding: "40px 24px" }}>
 
-        {/* AUDIO/VIDEO NotebookLM */}
+        {/* VIDEO YOUTUBE */}
         <div style={{ background: "#fff", borderRadius: "12px", border: "1px solid var(--ink25)", overflow: "hidden", boxShadow: "0 4px 32px rgba(13,35,71,0.08)", marginBottom: "32px" }}>
           <div style={{ padding: "14px 24px", background: "var(--offwhite)", borderBottom: "1px solid var(--ink25)", display: "flex", alignItems: "center", gap: "10px" }}>
             <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FF5F57" }}/>
             <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FEBC2E" }}/>
             <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#28C840" }}/>
-            <span style={{ marginLeft: "8px", fontSize: "13px", color: "var(--ink60)", fontWeight: 500 }}>🎧 Audio y Vídeo — Tema 1 IIPP</span>
+            <span style={{ marginLeft: "8px", fontSize: "13px", color: "var(--ink60)", fontWeight: 500 }}>🎥 Vídeo — Tema 1 IIPP</span>
           </div>
-          <div style={{ padding: "48px 40px", textAlign: "center" }}>
-            <div style={{ fontSize: "48px", marginBottom: "16px" }}>🎧</div>
-            <h3 style={{ fontFamily: "var(--serif)", fontSize: "22px", fontWeight: 700, color: "var(--blue-d)", marginBottom: "12px" }}>
-              Escucha y ve el Tema 1 en audio y vídeo
-            </h3>
-            <p style={{ fontSize: "15px", color: "var(--ink60)", marginBottom: "28px", maxWidth: "460px", margin: "0 auto 28px" }}>
-              Hemos preparado un resumen del Tema 1 en formato audio y vídeo para que puedas estudiar donde quieras.
-            </p>
-            <a
-              href={NOTEBOOKLM_URL}
-              target="_blank"
-              rel="noreferrer"
-              style={{ display: "inline-flex", alignItems: "center", gap: "10px", padding: "16px 36px", background: "var(--blue)", color: "#fff", fontFamily: "var(--body)", fontSize: "15px", fontWeight: 700, borderRadius: "8px", textDecoration: "none", transition: "background .2s" }}
-              onMouseOver={e => e.currentTarget.style.background = "var(--blue-d)"}
-              onMouseOut={e => e.currentTarget.style.background = "var(--blue)"}
-            >
-              🎧 Escuchar y ver el audio/vídeo →
-            </a>
+          <div style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}>
+            <iframe
+              src="https://www.youtube.com/embed/603HXBNlw1E"
+              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="Vídeo Tema 1 IIPP"
+            />
+          </div>
+        </div>
+
+        {/* MAPA CONCEPTUAL */}
+        <div style={{ background: "#fff", borderRadius: "12px", border: "1px solid var(--ink25)", overflow: "hidden", boxShadow: "0 4px 32px rgba(13,35,71,0.08)", marginBottom: "32px" }}>
+          <div style={{ padding: "14px 24px", background: "var(--offwhite)", borderBottom: "1px solid var(--ink25)", display: "flex", alignItems: "center", gap: "10px" }}>
+            <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FF5F57" }}/>
+            <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FEBC2E" }}/>
+            <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#28C840" }}/>
+            <span style={{ marginLeft: "8px", fontSize: "13px", color: "var(--ink60)", fontWeight: 500 }}>🗺️ Mapa conceptual — Tema 1 IIPP</span>
+            <a href="/mapa-conceptual-tema1.jpeg" download style={{ marginLeft: "auto", fontSize: "12px", color: "var(--blue)", fontWeight: 600, textDecoration: "none" }}>↓ Descargar</a>
+          </div>
+          <div style={{ padding: "24px", textAlign: "center", background: "#FAFAFA" }}>
+            <img
+              src="/mapa-conceptual-tema1.jpeg"
+              alt="Mapa conceptual Tema 1 IIPP"
+              style={{ maxWidth: "100%", height: "auto", borderRadius: "8px", boxShadow: "0 4px 16px rgba(0,0,0,0.1)" }}
+            />
           </div>
         </div>
 
